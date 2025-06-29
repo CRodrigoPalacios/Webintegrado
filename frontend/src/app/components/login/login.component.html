@@ -1,0 +1,35 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
+    <h3 class="text-2xl font-bold text-center">Login</h3>
+    <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="mt-4">
+        <div>
+          <label for="username" class="block">Username</label>
+          <input type="text" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                 name="username" [(ngModel)]="form.username" required #username="ngModel" />
+          <div class="text-red-600" *ngIf="username.errors && f.submitted">
+            <div *ngIf="username.errors['required']">Username is required</div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <label for="password" class="block">Password</label>
+          <input type="password" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                 name="password" [(ngModel)]="form.password" required #password="ngModel" />
+          <div class="text-red-600" *ngIf="password.errors && f.submitted">
+            <div *ngIf="password.errors['required']">Password is required</div>
+          </div>
+        </div>
+        <div class="flex items-baseline justify-between">
+          <button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Login</button>
+        </div>
+        <div class="text-red-600" *ngIf="f.submitted && isLoginFailed">
+          Login failed: {{ errorMessage }}
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="isLoggedIn" class="text-center">
+      Logged in as {{ roles.join(', ') }}.
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-3xl font-bold mb-4">Doctor Dashboard</h1>
+  <p>Welcome, Doctor! Here you can manage your appointment slots.</p>
+
+  <!-- Add form to create new appointment slots -->
+  <div class="mt-8 p-4 border rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold mb-4">Create New Appointment Slot</h2>
+    <form>
+      <div class="mb-4">
+        <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Date and Time:</label>
+        <input type="datetime-local" id="date" name="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <div class="mb-4">
+        <label for="slots" class="block text-gray-700 text-sm font-bold mb-2">Total Slots:</label>
+        <input type="number" id="slots" name="slots" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <div class="mb-4">
+        <label for="hospital" class="block text-gray-700 text-sm font-bold mb-2">Hospital:</label>
+        <select id="hospital" name="hospital" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          <option value="">Select a Hospital</option>
+          <!-- Options will be loaded dynamically -->
+        </select>
+      </div>
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Slot</button>
+    </form>
+  </div>
+
+  <!-- Display existing appointment slots -->
+  <div class="mt-8">
+    <h2 class="text-2xl font-semibold mb-4">Your Appointment Slots</h2>
+    <ul class="list-disc pl-5">
+      <li>[Date] - [Hospital Name] - [Available Slots]/[Total Slots]</li>
+      <!-- Slots will be loaded dynamically -->
+    </ul>
+  </div>
+</div>

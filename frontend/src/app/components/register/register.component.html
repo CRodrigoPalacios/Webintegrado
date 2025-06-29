@@ -1,0 +1,55 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
+    <h3 class="text-2xl font-bold text-center">Register</h3>
+    <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="mt-4">
+        <div>
+          <label for="username" class="block">Username</label>
+          <input type="text" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                 name="username" [(ngModel)]="form.username" required minlength="3" maxlength="20" #username="ngModel" />
+          <div class="text-red-600" *ngIf="username.errors && f.submitted">
+            <div *ngIf="username.errors['required']">Username is required</div>
+            <div *ngIf="username.errors['minlength']">Username must be at least 3 characters</div>
+            <div *ngIf="username.errors['maxlength']">Username must be at most 20 characters</div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <label for="email" class="block">Email</label>
+          <input type="email" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                 name="email" [(ngModel)]="form.email" required email #email="ngModel" />
+          <div class="text-red-600" *ngIf="email.errors && f.submitted">
+            <div *ngIf="email.errors['required']">Email is required</div>
+            <div *ngIf="email.errors['email']">Email must be a valid email address</div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <label for="password" class="block">Password</label>
+          <input type="password" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                 name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
+          <div class="text-red-600" *ngIf="password.errors && f.submitted">
+            <div *ngIf="password.errors['required']">Password is required</div>
+            <div *ngIf="password.errors['minlength']">Password must be at least 6 characters</div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <label for="role" class="block">Role</label>
+          <select name="role" [(ngModel)]="form.role" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+            <option value="user">User</option>
+            <option value="medico">Medico</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="flex items-baseline justify-between">
+          <button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Register</button>
+        </div>
+        <div class="text-red-600" *ngIf="f.submitted && isSignUpFailed">
+          Signup failed: {{ errorMessage }}
+        </div>
+      </div>
+    </form>
+
+    <div class="text-green-600" *ngIf="isSuccessful">
+      Your registration is successful!
+    </div>
+  </div>
+</div>
