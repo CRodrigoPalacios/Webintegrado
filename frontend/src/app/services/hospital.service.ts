@@ -7,15 +7,11 @@ const API_URL = 'http://localhost:8080/api/';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class HospitalService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<any> {
-    return this.http.get(API_URL + 'users');
-  }
-
-  updateUserRole(userId: number, role: string): Observable<any> {
-    return this.http.put(API_URL + 'users/' + userId + '/role', { role });
+  getHospitals(): Observable<any> {
+    return this.http.get(API_URL + 'hospitals');
   }
 }

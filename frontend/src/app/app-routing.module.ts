@@ -12,9 +12,10 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'doctor', component: DoctorDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'doctor', component: DoctorDashboardComponent, canActivate: [AuthGuard], data: { roles: ['MEDICO', 'ADMIN'] } },
   { path: 'patient', component: PatientDashboardComponent, canActivate: [AuthGuard] },
   { path: 'confirm-appointment', component: BookingConfirmationComponent },
+  { path: 'admin', loadChildren: () => import('./components/admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent), canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

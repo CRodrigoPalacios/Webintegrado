@@ -43,7 +43,12 @@ public class DoctorController {
     @GetMapping("/slots/{doctorId}")
     @PreAuthorize("hasRole('MEDICO') or hasRole('ADMIN')")
     public List<AppointmentSlot> getDoctorAppointmentSlots(@PathVariable Long doctorId) {
-        User doctor = userRepository.findById(doctorId).orElseThrow(() -> new RuntimeException("Doctor not found"));
-        return appointmentSlotRepository.findAll(); // This should be filtered by doctor
+        try {
+            User doctor = userRepository.findById(doctorId).orElseThrow(() -> new RuntimeException("Doctor not found"));
+            return appointmentSlotRepository.findByDoctor(doctor);
+        } catch (Exception e) {
+            System.err.println("Error fetching appointment slots for doctor " + doctorId + ": " + e.getMessage());
+            throw e;
+        }
     }
 }

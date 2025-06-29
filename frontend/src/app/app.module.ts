@@ -11,6 +11,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
 import { PatientDashboardComponent } from './components/patient-dashboard/patient-dashboard.component';
 import { BookingConfirmationComponent } from './components/booking-confirmation/booking-confirmation.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { authInterceptorProviders } from './helpers/http.interceptor';
 
@@ -22,7 +23,8 @@ import { authInterceptorProviders } from './helpers/http.interceptor';
     HomeComponent,
     DoctorDashboardComponent,
     PatientDashboardComponent,
-    BookingConfirmationComponent
+    BookingConfirmationComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

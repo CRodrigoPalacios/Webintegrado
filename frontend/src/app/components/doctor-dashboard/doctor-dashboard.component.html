@@ -5,32 +5,34 @@
   <!-- Add form to create new appointment slots -->
   <div class="mt-8 p-4 border rounded-lg shadow-md">
     <h2 class="text-2xl font-semibold mb-4">Create New Appointment Slot</h2>
-    <form>
+    <form (ngSubmit)="createAppointmentSlot()">
       <div class="mb-4">
         <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Date and Time:</label>
-        <input type="datetime-local" id="date" name="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <input type="datetime-local" id="date" name="date" [(ngModel)]="appointmentTime" name="appointmentTime" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
       </div>
       <div class="mb-4">
         <label for="slots" class="block text-gray-700 text-sm font-bold mb-2">Total Slots:</label>
-        <input type="number" id="slots" name="slots" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <input type="number" id="slots" name="slots" [(ngModel)]="totalSlots" name="totalSlots" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
       </div>
       <div class="mb-4">
         <label for="hospital" class="block text-gray-700 text-sm font-bold mb-2">Hospital:</label>
-        <select id="hospital" name="hospital" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <select id="hospital" name="hospital" [(ngModel)]="hospitalId" name="hospitalId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
           <option value="">Select a Hospital</option>
-          <!-- Options will be loaded dynamically -->
+          <option *ngFor="let hospital of hospitals" [value]="hospital.id">{{ hospital.name }}</option>
         </select>
       </div>
       <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Slot</button>
     </form>
+    <p class="mt-2 text-red-600">{{ message }}</p>
   </div>
 
   <!-- Display existing appointment slots -->
   <div class="mt-8">
     <h2 class="text-2xl font-semibold mb-4">Your Appointment Slots</h2>
     <ul class="list-disc pl-5">
-      <li>[Date] - [Hospital Name] - [Available Slots]/[Total Slots]</li>
-      <!-- Slots will be loaded dynamically -->
+      <li *ngFor="let slot of appointmentSlots">
+        {{ slot.appointmentTime | date:'short' }} - {{ slot.hospital.name }} - {{ slot.totalSlots }}
+      </li>
     </ul>
   </div>
 </div>
