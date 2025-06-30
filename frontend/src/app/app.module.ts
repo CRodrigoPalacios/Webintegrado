@@ -12,8 +12,11 @@ import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-d
 import { PatientDashboardComponent } from './components/patient-dashboard/patient-dashboard.component';
 import { BookingConfirmationComponent } from './components/booking-confirmation/booking-confirmation.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { HospitalCreateComponent } from './components/hospital-create/hospital-create.component';
 
 import { authInterceptorProviders } from './helpers/http.interceptor';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,13 +27,16 @@ import { authInterceptorProviders } from './helpers/http.interceptor';
     DoctorDashboardComponent,
     PatientDashboardComponent,
     BookingConfirmationComponent,
-    NavbarComponent
+    NavbarComponent,
+    AdminPanelComponent,
+    HospitalCreateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

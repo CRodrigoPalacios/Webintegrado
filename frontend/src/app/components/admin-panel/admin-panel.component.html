@@ -1,0 +1,33 @@
+<div class="flex h-screen">
+  <aside class="w-64 bg-gray-800 text-white p-4">
+    <h2 class="text-xl font-bold mb-6">Panel Administrativo</h2>
+    <nav>
+      <ul>
+        <li *ngIf="isAdmin || isMedico" class="mb-2">
+          <a routerLink="/admin-panel/dashboard" class="block py-2 px-3 rounded hover:bg-gray-700">Dashboard</a>
+        </li>
+        <li *ngIf="isMedico" class="mb-2">
+          <a routerLink="/admin-panel/crear-citas" class="block py-2 px-3 rounded hover:bg-gray-700">Crear Citas</a>
+        </li>
+        <li *ngIf="isMedico" class="mb-2">
+          <a routerLink="/admin-panel/citas-pendientes" class="block py-2 px-3 rounded hover:bg-gray-700">Ver Citas Pendientes</a>
+        </li>
+        <li *ngIf="isAdmin" class="mb-2">
+          <a routerLink="/admin-panel/agregar-hospitales" class="block py-2 px-3 rounded hover:bg-gray-700">Agregar Hospitales</a>
+        </li>
+        <li *ngIf="isAdmin" class="mb-2">
+          <a routerLink="/admin-panel/citas-pendientes-doctor" class="block py-2 px-3 rounded hover:bg-gray-700">Ver Citas Pendientes por Doctor</a>
+        </li>
+        <li *ngIf="isAdmin" class="mb-2">
+          <a routerLink="/admin-panel/citas-completadas" class="block py-2 px-3 rounded hover:bg-gray-700">Ver Citas Completadas y Canceladas</a>
+        </li>
+        <li *ngIf="isAdmin" class="mb-2">
+          <a routerLink="/admin-panel/modificacion-usuario" class="block py-2 px-3 rounded hover:bg-gray-700">Modificación de Usuario</a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <main class="flex-1 p-6 overflow-auto">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,11 +1,11 @@
 <nav class="bg-blue-600 p-4 text-white flex justify-between items-center">
   <div class="text-xl font-bold">
-    Medical Appointments
+    Admin Panel
   </div>
   <div *ngIf="isLoggedIn; else loggedOut" class="flex items-center space-x-4">
     <span>Welcome, {{ username }}</span>
+    <a *ngIf="isLoggedIn" routerLink="/admin-panel" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded">Admin Panel</a>
     <button (click)="logout()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">Logout</button>
-    <button *ngIf="showDoctorMenu" routerLink="/doctor" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded">Doctor Menu</button>
   </div>
   <ng-template #loggedOut>
     <a routerLink="/login" class="mr-4 hover:underline">Login</a>

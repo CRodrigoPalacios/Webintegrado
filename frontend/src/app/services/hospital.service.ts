@@ -14,4 +14,8 @@ export class HospitalService {
   getHospitals(): Observable<any> {
     return this.http.get(API_URL + 'hospitals');
   }
+
+  createHospital(hospital: { name: string; address: string }): Observable<any> {
+    return this.http.post(API_URL + 'hospitals', hospital);
+  }
 }
