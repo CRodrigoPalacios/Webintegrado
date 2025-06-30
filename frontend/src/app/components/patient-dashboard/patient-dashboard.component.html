@@ -2,21 +2,36 @@
   <h1 class="text-3xl font-bold mb-4">Patient Dashboard</h1>
   <p>Welcome, Patient! Here you can view and book appointments.</p>
 
-  <!-- Display available appointment slots -->
   <div class="mt-8">
     <h2 class="text-2xl font-semibold mb-4">Available Appointments</h2>
+
+    <label for="specializationFilter" class="block mb-2 font-semibold">Filter by Specialization:</label>
+    <select id="specializationFilter" [(ngModel)]="selectedSpecialization" (change)="filterBySpecialization()" class="mb-4 p-2 border rounded">
+      <option value="">All</option>
+      <option *ngFor="let spec of specializations" [value]="spec">{{ spec }}</option>
+    </select>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let appointment of filteredAppointments" class="border rounded shadow p-4">
+        <h3 class="text-xl font-bold mb-2">{{ appointment.doctorName }}</h3>
+        <p><strong>Specialization:</strong> {{ appointment.doctorSpecialization }}</p>
+        <p><strong>Date & Time:</strong> {{ appointment.appointmentTime | date:'short' }}</p>
+        <p><strong>Hospital:</strong> {{ appointment.hospitalName }}</p>
+        <p><strong>Available Slots:</strong> {{ appointment.availableSlots }}</p>
+        <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
+                (click)="bookAppointment(appointment.id)" [disabled]="appointment.availableSlots === 0">
+          Book Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8" *ngIf="bookedAppointments.length > 0">
+    <h2 class="text-2xl font-semibold mb-4">Your Booked Appointments</h2>
     <ul class="list-disc pl-5">
-      <li>[Date] - [Doctor Name] - [Hospital Name] - [Available Slots] <button class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm">Book Now</button></li>
-      <!-- Appointments will be loaded dynamically -->
+      <li *ngFor="let booked of bookedAppointments">{{ booked.appointmentTime }} - {{ booked.doctorName }} - {{ booked.hospitalName }} - Status: {{ booked.status }}</li>
     </ul>
   </div>
 
-  <!-- Display your booked appointments -->
-  <div class="mt-8">
-    <h2 class="text-2xl font-semibold mb-4">Your Booked Appointments</h2>
-    <ul class="list-disc pl-5">
-      <li>[Date] - [Doctor Name] - [Hospital Name] - Status: [Status]</li>
-      <!-- Booked appointments will be loaded dynamically -->
-    </ul>
-  </div>
+  <div *ngIf="message" class="mt-4 text-red-600 font-semibold">{{ message }}</div>
 </div>
