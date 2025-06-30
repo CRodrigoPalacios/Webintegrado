@@ -36,7 +36,10 @@ public class BookingService {
             throw new RuntimeException("No available slots");
         }
 
+        int slotNumber = appointmentSlot.getTotalSlots() - appointmentSlot.getAvailableSlots() + 1;
+
         Booking booking = new Booking(patient, appointmentSlot);
+        booking.setSlotNumber(slotNumber);
         booking.setConfirmationToken(UUID.randomUUID().toString());
         booking.setTokenExpiryDate(LocalDateTime.now().plusHours(24));
 

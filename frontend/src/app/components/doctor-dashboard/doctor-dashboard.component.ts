@@ -13,6 +13,7 @@ export class DoctorDashboardComponent implements OnInit {
   hospitalId: number | null = null;
   appointmentTime: string = '';
   totalSlots: number | null = null;
+  openDuration: number = 1;
   hospitals: any[] = [];
   appointmentSlots: any[] = [];
   message: string = '';
@@ -56,17 +57,17 @@ export class DoctorDashboardComponent implements OnInit {
   }
 
   createAppointmentSlot(): void {
-    if (!this.doctorId || !this.hospitalId || !this.appointmentTime || !this.totalSlots) {
-      this.message = 'Please fill all fields';
+    if (!this.doctorId || !this.hospitalId || !this.appointmentTime || !this.totalSlots || !this.openDuration) {
+      this.message = 'Por favor complete todos los campos';
       return;
     }
-    this.appointmentService.createAppointmentSlot(this.doctorId, this.hospitalId, this.appointmentTime, this.totalSlots).subscribe({
+    this.appointmentService.createAppointmentSlot(this.doctorId, this.hospitalId, this.appointmentTime, this.totalSlots, this.openDuration).subscribe({
       next: () => {
-        this.message = 'Appointment slot created successfully!';
+        this.message = '¡Horario de cita creado con éxito!';
         this.loadAppointmentSlots();
       },
       error: (err) => {
-        this.message = 'Error creating appointment slot';
+        this.message = 'Error al crear el horario de cita';
         console.error(err);
       }
     });

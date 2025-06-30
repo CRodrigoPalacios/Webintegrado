@@ -11,12 +11,13 @@ export class AppointmentService {
 
   constructor(private http: HttpClient) { }
 
-  createAppointmentSlot(doctorId: number, hospitalId: number, appointmentTime: string, totalSlots: number): Observable<any> {
+  createAppointmentSlot(doctorId: number, hospitalId: number, appointmentTime: string, totalSlots: number, openDuration: number): Observable<any> {
     return this.http.post(API_URL + 'doctor/slots', {
       doctorId,
       hospitalId,
       appointmentTime,
-      totalSlots
+      totalSlots,
+      openDuration
     });
   }
 

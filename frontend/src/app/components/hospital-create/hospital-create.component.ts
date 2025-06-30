@@ -1,16 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HospitalService } from '../../services/hospital.service';
+import { TokenStorageService } from '../../services/token-storage.service';
 
 @Component({
   selector: 'app-hospital-create',
   templateUrl: './hospital-create.component.html',
 })
-export class HospitalCreateComponent {
+export class HospitalCreateComponent implements OnInit {
   name: string = '';
   address: string = '';
   message: string = '';
 
-  constructor(private hospitalService: HospitalService) {}
+  constructor(
+    private hospitalService: HospitalService,
+    private tokenStorage: TokenStorageService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    const token = this.tokenStorage.getToken();
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
+  }
 
   createHospital(): void {
     if (!this.name || !this.address) {

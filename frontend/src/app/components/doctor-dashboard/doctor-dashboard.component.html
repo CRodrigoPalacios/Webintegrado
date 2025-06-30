@@ -1,34 +1,40 @@
 <div class="container mx-auto p-4">
-  <h1 class="text-3xl font-bold mb-4">Doctor Dashboard</h1>
-  <p>Welcome, Doctor! Here you can manage your appointment slots.</p>
+  <h1 class="text-3xl font-bold mb-4">Panel del Médico</h1>
+  <p>¡Bienvenido, Doctor! Aquí puede gestionar sus horarios de citas.</p>
 
-  <!-- Add form to create new appointment slots -->
+  <!-- Formulario para crear nuevos horarios de citas -->
   <div class="mt-8 p-4 border rounded-lg shadow-md">
-    <h2 class="text-2xl font-semibold mb-4">Create New Appointment Slot</h2>
+    <h2 class="text-2xl font-semibold mb-4">Crear Nuevo Horario de Cita</h2>
     <form (ngSubmit)="createAppointmentSlot()">
       <div class="mb-4">
-        <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Date and Time:</label>
+        <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Fecha y Hora:</label>
         <input type="datetime-local" id="date" name="date" [(ngModel)]="appointmentTime" name="appointmentTime" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
       </div>
       <div class="mb-4">
-        <label for="slots" class="block text-gray-700 text-sm font-bold mb-2">Total Slots:</label>
+        <label for="slots" class="block text-gray-700 text-sm font-bold mb-2">Número Total de Cupos:</label>
         <input type="number" id="slots" name="slots" [(ngModel)]="totalSlots" name="totalSlots" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
       </div>
       <div class="mb-4">
         <label for="hospital" class="block text-gray-700 text-sm font-bold mb-2">Hospital:</label>
         <select id="hospital" name="hospital" [(ngModel)]="hospitalId" name="hospitalId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-          <option value="">Select a Hospital</option>
+          <option value="">Seleccione un Hospital</option>
           <option *ngFor="let hospital of hospitals" [value]="hospital.id">{{ hospital.name }}</option>
         </select>
       </div>
-      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Slot</button>
+      <div class="mb-4">
+        <label for="duration" class="block text-gray-700 text-sm font-bold mb-2">Duración para que la cita esté abierta:</label>
+        <select id="duration" name="duration" [(ngModel)]="openDuration" name="openDuration" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+          <option *ngFor="let day of [1,2,3,4,5,6,7]" [value]="day">{{ day }} día{{ day > 1 ? 's' : '' }}</option>
+        </select>
+      </div>
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear Horario</button>
     </form>
     <p class="mt-2 text-red-600">{{ message }}</p>
   </div>
 
-  <!-- Display existing appointment slots -->
+  <!-- Mostrar horarios de citas existentes -->
   <div class="mt-8">
-    <h2 class="text-2xl font-semibold mb-4">Your Appointment Slots</h2>
+    <h2 class="text-2xl font-semibold mb-4">Sus Horarios de Citas</h2>
     <ul class="list-disc pl-5">
       <li *ngFor="let slot of appointmentSlots">
         {{ slot.appointmentTime | date:'short' }} - {{ slot.hospital.name }} - {{ slot.totalSlots }}

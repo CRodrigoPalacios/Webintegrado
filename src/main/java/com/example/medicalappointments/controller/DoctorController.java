@@ -37,7 +37,7 @@ public class DoctorController {
         AppointmentSlot appointmentSlot = new AppointmentSlot(doctor, hospital, appointmentSlotDTO.getAppointmentTime(), appointmentSlotDTO.getTotalSlots());
         appointmentSlotRepository.save(appointmentSlot);
 
-        return ResponseEntity.ok("Appointment slot created successfully!");
+        return ResponseEntity.ok().body(new com.example.medicalappointments.dto.MessageResponse("Appointment slot created successfully!"));
     }
 
     @GetMapping("/slots/{doctorId}")
