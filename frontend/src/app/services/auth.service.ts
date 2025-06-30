@@ -30,4 +30,12 @@ export class AuthService {
       role: user.role
     }, httpOptions);
   }
+
+  getUser(): any {
+    const user = localStorage.getItem('auth-user');
+    if (user) {
+      return JSON.parse(user);
+    }
+    return null;
+  }
 }

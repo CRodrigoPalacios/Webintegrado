@@ -46,11 +46,11 @@ export class DoctorDashboardComponent implements OnInit {
 
   loadAppointmentSlots(): void {
     if (!this.doctorId) return;
-    this.appointmentService.getDoctorAppointmentSlots(this.doctorId).subscribe({
-      next: (data) => {
+    this.appointmentService.getAllAppointmentSlots().subscribe({
+      next: (data: any) => {
         this.appointmentSlots = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error loading appointment slots', err);
       }
     });
@@ -61,12 +61,18 @@ export class DoctorDashboardComponent implements OnInit {
       this.message = 'Por favor complete todos los campos';
       return;
     }
-    this.appointmentService.createAppointmentSlot(this.doctorId, this.hospitalId, this.appointmentTime, this.totalSlots, this.openDuration).subscribe({
+    this.appointmentService.createAppointmentSlot({
+      doctorId: this.doctorId,
+      hospitalId: this.hospitalId,
+      appointmentTime: this.appointmentTime,
+      totalSlots: this.totalSlots,
+      openDuration: this.openDuration
+    }).subscribe({
       next: () => {
         this.message = '¡Horario de cita creado con éxito!';
         this.loadAppointmentSlots();
       },
-      error: (err) => {
+      error: (err: any) => {
         this.message = 'Error al crear el horario de cita';
         console.error(err);
       }

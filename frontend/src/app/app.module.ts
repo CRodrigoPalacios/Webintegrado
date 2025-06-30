@@ -14,6 +14,7 @@ import { BookingConfirmationComponent } from './components/booking-confirmation/
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { HospitalCreateComponent } from './components/hospital-create/hospital-create.component';
+import { ActiveAppointmentsComponent } from './components/active-appointments/active-appointments.component';
 
 import { authInterceptorProviders } from './helpers/http.interceptor';
 import { RouterModule } from '@angular/router';
@@ -29,7 +30,8 @@ import { RouterModule } from '@angular/router';
     BookingConfirmationComponent,
     NavbarComponent,
     AdminPanelComponent,
-    HospitalCreateComponent
+    HospitalCreateComponent,
+    ActiveAppointmentsComponent
   ],
   imports: [
     BrowserModule,

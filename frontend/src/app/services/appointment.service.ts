@@ -11,21 +11,19 @@ export class AppointmentService {
 
   constructor(private http: HttpClient) { }
 
-  createAppointmentSlot(doctorId: number, hospitalId: number, appointmentTime: string, totalSlots: number, openDuration: number): Observable<any> {
-    return this.http.post(API_URL + 'doctor/slots', {
-      doctorId,
-      hospitalId,
-      appointmentTime,
-      totalSlots,
-      openDuration
-    });
-  }
-
-  getDoctorAppointmentSlots(doctorId: number): Observable<any> {
-    return this.http.get(API_URL + `doctor/slots/${doctorId}`);
-  }
-
   getAllAppointmentSlots(): Observable<any> {
-    return this.http.get(API_URL + 'appointments');
+    return this.http.get(API_URL + 'doctor/slots');
+  }
+
+  getActiveAppointmentSlots(): Observable<any> {
+    return this.http.get(API_URL + 'doctor/active-slots');
+  }
+
+  createAppointmentSlot(appointmentSlot: any): Observable<any> {
+    return this.http.post(API_URL + 'doctor/slots', appointmentSlot);
+  }
+
+  createBooking(patientId: number, appointmentSlotId: number): Observable<any> {
+    return this.http.post(API_URL + `bookings/${patientId}/${appointmentSlotId}`, {});
   }
 }
