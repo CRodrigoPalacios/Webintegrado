@@ -19,6 +19,7 @@ C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 ava
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\dto\MessageResponse.java
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\security\JwtUtils.java
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\model\AppointmentSlot.java
+C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\dto\ActiveAppointmentSlotDTO.java
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\controller\AppointmentController.java
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\MedicalAppointmentsApplication.java
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\dto\AppointmentSlotDTO.java
@@ -26,6 +27,7 @@ C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 ava
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\config\DataInitializer.java
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\repository\HospitalRepository.java
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\service\UserDetailsImpl.java
+C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\controller\HospitalController.java
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\repository\BookingRepository.java
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\security\AuthEntryPointJwt.java
 C:\Users\USUARIO.DESKTOP-KRSUJNM\OneDrive\Escritorio\7 ciclo\WEB INTEGRADO\3 avance\Webintegrado\src\main\java\com\example\medicalappointments\dto\SignupRequest.java

@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "dni"),
                 @UniqueConstraint(columnNames = "email")
         })
 public class User {
@@ -22,9 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(max = 20)
-    private String username;
+    
 
     @NotBlank
     @Size(max = 50)
@@ -37,6 +35,12 @@ public class User {
 
     private String specialization;
 
+    private String dni;
+
+    @NotBlank
+    @Size(max = 50)
+    private String fullName;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -45,23 +49,18 @@ public class User {
 
     public User() {}
 
-    public User(String username, String email, String password) {
-        this.username = username;
+    public User(String email, String password, String dni, String fullName) {
         this.email = email;
         this.password = password;
+        this.dni = dni;
+        this.fullName = fullName;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    
 
     public String getEmail() {
         return email;
@@ -85,6 +84,22 @@ public class User {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public Set<Role> getRoles() {

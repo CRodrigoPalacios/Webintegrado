@@ -29,6 +29,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
+            String path = request.getServletPath();
+            if (path.startsWith("/api/auth/")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
             String jwt = parseJwt(request);
             if (jwt == null) {
                 logger.warn("JWT Token is missing in the request");

@@ -56,7 +56,7 @@ public class AuthController {
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(loginRequest.getDni(), loginRequest.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtUtils.generateJwtToken(authentication);
@@ -73,7 +73,7 @@ public class AuthController {
                     roles));
         } catch (Exception e) {
             // Log authentication failure
-            System.err.println("Authentication failed for user: " + loginRequest.getUsername() + " - " + e.getMessage());
+            System.err.println("Authentication failed for user: " + loginRequest.getDni() + " - " + e.getMessage());
             return ResponseEntity.status(401).body(new MessageResponse("Authentication failed: " + e.getMessage()));
         }
     }
@@ -81,10 +81,10 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         try {
-            if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            if (userRepository.existsByDni(signUpRequest.getDni())) {
                 return ResponseEntity
                         .badRequest()
-                        .body(new MessageResponse("Error: Username is already taken!"));
+                        .body(new MessageResponse("Error: DNI is already taken!"));
             }
 
             if (userRepository.existsByEmail(signUpRequest.getEmail())) {
@@ -93,10 +93,10 @@ public class AuthController {
                         .body(new MessageResponse("Error: Email is already in use!"));
             }
 
-            // Create new user's account
-            User user = new User(signUpRequest.getUsername(),
-                    signUpRequest.getEmail(),
-                    encoder.encode(signUpRequest.getPassword()));
+            User user = new User(signUpRequest.getEmail(),
+                    encoder.encode(signUpRequest.getPassword()),
+                    signUpRequest.getDni(),
+                    signUpRequest.getFullName());
 
             Set<String> strRoles = signUpRequest.getRole();
             Set<Role> roles = new HashSet<>();

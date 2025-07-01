@@ -3,15 +3,28 @@
     <h3 class="text-2xl font-bold text-center">Register</h3>
     <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
       <div class="mt-4">
-        <div>
-          <label for="username" class="block">Username</label>
-          <input type="text" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                 name="username" [(ngModel)]="form.username" required minlength="3" maxlength="20" #username="ngModel" />
-          <div class="text-red-600" *ngIf="username.errors && f.submitted">
-            <div *ngIf="username.errors['required']">Username is required</div>
-            <div *ngIf="username.errors['minlength']">Username must be at least 3 characters</div>
-            <div *ngIf="username.errors['maxlength']">Username must be at most 20 characters</div>
-          </div>
+        <div class="mt-4">
+          <label for="dni" class="block">DNI</label>
+          <input type="text" maxlength="8" minlength="8" name="dni" [(ngModel)]="form.dni" required
+                 class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" />
+          <button type="button" (click)="validateDni()" class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700">
+            Validar DNI
+          </button>
+        </div>
+        <div class="mt-4">
+          <label for="firstName" class="block">Nombres</label>
+          <input type="text" name="firstName" [(ngModel)]="form.firstName" readonly
+                 class="w-full px-4 py-2 mt-2 border rounded-md bg-gray-100" />
+        </div>
+        <div class="mt-4">
+          <label for="lastNamePaternal" class="block">Apellido Paterno</label>
+          <input type="text" name="lastNamePaternal" [(ngModel)]="form.lastNamePaternal" readonly
+                 class="w-full px-4 py-2 mt-2 border rounded-md bg-gray-100" />
+        </div>
+        <div class="mt-4">
+          <label for="lastNameMaternal" class="block">Apellido Materno</label>
+          <input type="text" name="lastNameMaternal" [(ngModel)]="form.lastNameMaternal" readonly
+                 class="w-full px-4 py-2 mt-2 border rounded-md bg-gray-100" />
         </div>
         <div class="mt-4">
           <label for="email" class="block">Email</label>
@@ -32,12 +45,13 @@
           </div>
         </div>
         <div class="mt-4">
-          <label for="role" class="block">Role</label>
-          <select name="role" [(ngModel)]="form.role" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
-            <option value="user">User</option>
-            <option value="medico">Medico</option>
-            <option value="admin">Admin</option>
-          </select>
+          <label for="confirmPassword" class="block">Confirm Password</label>
+          <input type="password" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                 name="confirmPassword" [(ngModel)]="form.confirmPassword" required minlength="6" #confirmPassword="ngModel" />
+          <div class="text-red-600" *ngIf="confirmPassword.errors && f.submitted">
+            <div *ngIf="confirmPassword.errors['required']">Confirm Password is required</div>
+            <div *ngIf="confirmPassword.errors['minlength']">Confirm Password must be at least 6 characters</div>
+          </div>
         </div>
         <div class="flex items-baseline justify-between">
           <button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Register</button>

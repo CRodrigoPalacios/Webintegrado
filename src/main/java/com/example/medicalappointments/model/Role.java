@@ -9,7 +9,6 @@ import lombok.Setter;
 @Table(name = "roles")
 @Getter
 @Setter
-@NoArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +18,15 @@ public class Role {
     @Column(length = 20)
     private ERole name;
 
+    public Role() {
+        // Default constructor required by JPA
+    }
+
     public Role(ERole name) {
         this.name = name;
+    }
+
+    public ERole getName() {
+        return this.name;
     }
 }

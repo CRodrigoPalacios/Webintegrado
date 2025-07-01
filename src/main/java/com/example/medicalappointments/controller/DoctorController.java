@@ -1,20 +1,26 @@
 package com.example.medicalappointments.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.medicalappointments.dto.ActiveAppointmentSlotDTO;
 import com.example.medicalappointments.dto.AppointmentSlotDTO;
+import com.example.medicalappointments.dto.MessageResponse;
 import com.example.medicalappointments.model.AppointmentSlot;
 import com.example.medicalappointments.model.User;
 import com.example.medicalappointments.repository.AppointmentSlotRepository;
 import com.example.medicalappointments.repository.HospitalRepository;
 import com.example.medicalappointments.repository.UserRepository;
-import com.example.medicalappointments.dto.MessageResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/doctor")
@@ -58,7 +64,7 @@ public class DoctorController {
             dto.setAppointmentTime(slot.getAppointmentTime());
             dto.setTotalSlots(slot.getTotalSlots());
             dto.setAvailableSlots(slot.getAvailableSlots());
-            dto.setDoctorName(slot.getDoctor().getUsername());
+            dto.setDoctorName(slot.getDoctor().getFullName());
             dto.setDoctorSpecialization(slot.getDoctor().getSpecialization());
             activeSlots.add(dto);
         }
