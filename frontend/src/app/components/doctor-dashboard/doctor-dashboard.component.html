@@ -37,7 +37,7 @@
     <h2 class="text-2xl font-semibold mb-4">Sus Horarios de Citas</h2>
     <ul class="list-disc pl-5">
       <li *ngFor="let slot of appointmentSlots">
-        {{ slot.appointmentTime | date:'short' }} - {{ slot.hospital.name }} - {{ slot.totalSlots }}
+        {{ slot.appointmentTime | date:'short' }} - {{ slot.hospitalName }} - {{ slot.totalSlots }}
       </li>
     </ul>
   </div>

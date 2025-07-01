@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { HospitalCreateComponent } from './components/hospital-create/hospital-create.component';
 import { ActiveAppointmentsComponent } from './components/active-appointments/active-appointments.component';
+import { AppointmentReservationComponent } from './components/appointment-reservation/appointment-reservation.component';
 
 import { authInterceptorProviders } from './helpers/http.interceptor';
 import { RouterModule } from '@angular/router';
@@ -31,7 +33,8 @@ import { RouterModule } from '@angular/router';
     NavbarComponent,
     AdminPanelComponent,
     HospitalCreateComponent,
-    ActiveAppointmentsComponent
+    ActiveAppointmentsComponent,
+    AppointmentReservationComponent
   ],
   imports: [
     BrowserModule,

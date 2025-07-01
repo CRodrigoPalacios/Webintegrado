@@ -9,6 +9,7 @@ import { BookingConfirmationComponent } from './components/booking-confirmation/
 import { AuthGuard } from './guards/auth.guard';
 import { HospitalCreateComponent } from './components/hospital-create/hospital-create.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { AppointmentReservationComponent } from './components/appointment-reservation/appointment-reservation.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'agregar-hospitales', component: HospitalCreateComponent },
       // Other child routes for admin panel sections can be added here
     ] },
+  { path: 'appointment-reservation', component: AppointmentReservationComponent, canActivate: [AuthGuard] },
   { path: 'patient', component: PatientDashboardComponent, canActivate: [AuthGuard] },
   { path: 'confirm-appointment', component: BookingConfirmationComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }

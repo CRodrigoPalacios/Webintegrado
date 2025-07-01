@@ -57,12 +57,27 @@ export class DoctorDashboardComponent implements OnInit {
   }
 
   createAppointmentSlot(): void {
-    if (!this.doctorId || !this.hospitalId || !this.appointmentTime || !this.totalSlots || !this.openDuration) {
+    if (!this.doctorId || !this.hospitalId || !this.appointmentTime || !this.totalSlots) {
       this.message = 'Por favor complete todos los campos';
       return;
     }
-    // Assuming createAppointmentSlot method is not implemented in AppointmentService
-    // You may need to implement it or handle slot creation differently
-    console.warn('createAppointmentSlot method is not implemented in AppointmentService');
+
+    const appointmentSlotDTO = {
+      doctorId: this.doctorId,
+      hospitalId: this.hospitalId,
+      appointmentTime: this.appointmentTime,
+      totalSlots: this.totalSlots
+    };
+
+    this.appointmentService.createAppointmentSlot(appointmentSlotDTO).subscribe({
+      next: (data) => {
+        this.message = data.message || 'Cita creada exitosamente';
+        this.loadAppointmentSlots();
+      },
+      error: (err) => {
+        this.message = 'Error al crear la cita';
+        console.error(err);
+      }
+    });
   }
 }

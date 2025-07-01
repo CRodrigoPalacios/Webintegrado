@@ -16,7 +16,7 @@ export class AppointmentService {
   }
 
   createBooking(userId: number, appointmentSlotId: number): Observable<any> {
-    return this.http.post(API_URL + 'booking', { userId, appointmentSlotId });
+    return this.http.post(API_URL + `bookings/${userId}/${appointmentSlotId}`, null);
   }
 
   createAppointmentSlot(appointmentSlot: any): Observable<any> {

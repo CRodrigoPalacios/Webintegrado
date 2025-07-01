@@ -32,6 +32,11 @@ public class BookingService {
         User patient = userRepository.findById(patientId).orElseThrow(() -> new RuntimeException("Patient not found"));
         AppointmentSlot appointmentSlot = appointmentSlotRepository.findById(appointmentSlotId).orElseThrow(() -> new RuntimeException("Appointment slot not found"));
 
+        // Check if patient already has a booking for this appointment slot
+        if (bookingRepository.findByPatientAndAppointmentSlot(patient, appointmentSlot).isPresent()) {
+            throw new RuntimeException("You already have a booking for this appointment slot");
+        }
+
         if (appointmentSlot.getAvailableSlots() <= 0) {
             throw new RuntimeException("No available slots");
         }
