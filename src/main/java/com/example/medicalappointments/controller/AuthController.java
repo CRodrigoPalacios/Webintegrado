@@ -52,7 +52,7 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/signin")
+    @PostMapping(value = "/signin", produces = "application/json")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -68,7 +68,8 @@ public class AuthController {
 
             return ResponseEntity.ok(new JwtResponse(jwt,
                     userDetails.getId(),
-                    userDetails.getUsername(),
+                    userDetails.getDni(),
+                    userDetails.getDni(),
                     userDetails.getEmail(),
                     roles));
         } catch (Exception e) {

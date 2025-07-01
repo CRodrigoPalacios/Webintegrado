@@ -27,51 +27,41 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Create roles if not exist
-        if (roleRepository.findAll().isEmpty()) {
+        System.out.println("Running DataInitializer...");
+
+        // Initialize roles if not present
+        if (roleRepository.count() == 0) {
+            System.out.println("Initializing roles...");
             Role userRole = new Role(ERole.ROLE_USER);
             roleRepository.save(userRole);
 
-            Role doctorRole = new Role(ERole.ROLE_MEDICO);
-            roleRepository.save(doctorRole);
-
             Role adminRole = new Role(ERole.ROLE_ADMIN);
             roleRepository.save(adminRole);
+
+            Role medicoRole = new Role(ERole.ROLE_MEDICO);
+            roleRepository.save(medicoRole);
         }
 
-        // Create users if not exist
-        if (userRepository.findAll().isEmpty()) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElseThrow();
-            Role doctorRole = roleRepository.findByName(ERole.ROLE_MEDICO).orElseThrow();
-            Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN).orElseThrow();
-
-            // User
+        // Initialize a default user with encoded password
+        if (!userRepository.existsByDni("12345678")) {
+            System.out.println("Creating default user...");
             User user = new User();
-            user.setFullName("user");
-            user.setEmail("user@example.com");
-            user.setPassword(passwordEncoder.encode("user123"));
-            user.setRoles(Set.of(userRole));
             user.setDni("12345678");
+            user.setEmail("user@example.com");
+            user.setFullName("Default User");
+            user.setPassword(passwordEncoder.encode("user123"));
+
+            Set<Role> roles = new HashSet<>();
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElse(null);
+            if (userRole != null) {
+                roles.add(userRole);
+            }
+            user.setRoles(roles);
+
             userRepository.save(user);
-
-            // Doctor
-            User doctor = new User();
-            doctor.setFullName("doctor");
-            doctor.setEmail("doctor@example.com");
-            doctor.setPassword(passwordEncoder.encode("doctor123"));
-            doctor.setRoles(Set.of(doctorRole));
-            doctor.setSpecialization("Cardiologia");
-            doctor.setDni("87654321");
-            userRepository.save(doctor);
-
-            // Admin
-            User admin = new User();
-            admin.setFullName("admin");
-            admin.setEmail("admin@example.com");
-            admin.setPassword(passwordEncoder.encode("admin123"));
-            admin.setRoles(Set.of(adminRole));
-            admin.setDni("11223344");
-            userRepository.save(admin);
+            System.out.println("Default user created.");
+        } else {
+            System.out.println("Default user already exists.");
         }
     }
 }
