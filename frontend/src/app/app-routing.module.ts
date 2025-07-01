@@ -13,6 +13,8 @@ import { AppointmentReservationComponent } from './components/appointment-reserv
 import { UserAppointmentsComponent } from './components/user-appointments/user-appointments.component';
 import { UserModificationComponent } from './components/user-modification/user-modification.component';
 import { PendingAppointmentsComponent } from './components/pending-appointments/pending-appointments.component';
+import { PendingAppointmentsDoctorComponent } from './components/pending-appointments-doctor/pending-appointments-doctor.component';
+import { CompletedCancelledAppointmentsComponent } from './components/completed-cancelled-appointments/completed-cancelled-appointments.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,6 +25,8 @@ const routes: Routes = [
       { path: 'agregar-hospitales', component: HospitalCreateComponent },
       { path: 'modificar-usuarios', component: UserModificationComponent },
       { path: 'citas-pendientes', component: PendingAppointmentsComponent },
+      { path: 'citas-pendientes-doctor', component: PendingAppointmentsDoctorComponent },
+      { path: 'citas-completadas', component: CompletedCancelledAppointmentsComponent },
       // Other child routes for admin panel sections can be added here
     ] },
   { path: 'appointment-reservation', component: AppointmentReservationComponent, canActivate: [AuthGuard] },

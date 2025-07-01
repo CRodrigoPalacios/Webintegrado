@@ -1,0 +1,22 @@
+<div class="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-4">Pending Appointments by Doctor</h2>
+  <div *ngIf="message" class="mb-4 text-red-600">{{ message }}</div>
+  <table class="w-full border-collapse border border-gray-300">
+    <thead>
+      <tr>
+        <th class="border border-gray-300 px-4 py-2">Doctor</th>
+        <th class="border border-gray-300 px-4 py-2">Patient</th>
+        <th class="border border-gray-300 px-4 py-2">Date</th>
+        <th class="border border-gray-300 px-4 py-2">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookings">
+        <td class="border border-gray-300 px-4 py-2">{{ booking.doctorName }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ booking.patientName }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ booking.date | date:'short' }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ booking.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
