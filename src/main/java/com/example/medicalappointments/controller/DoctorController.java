@@ -66,6 +66,11 @@ public class DoctorController {
             dto.setAvailableSlots(slot.getAvailableSlots());
             dto.setDoctorName(slot.getDoctor().getFullName());
             dto.setDoctorSpecialization(slot.getDoctor().getSpecialization());
+            if (slot.getHospital() != null) {
+                dto.setHospitalName(slot.getHospital().getName());
+            } else {
+                dto.setHospitalName("N/A");
+            }
             activeSlots.add(dto);
         }
         return activeSlots;

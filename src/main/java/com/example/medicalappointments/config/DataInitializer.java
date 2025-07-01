@@ -63,5 +63,49 @@ public class DataInitializer implements CommandLineRunner {
         } else {
             System.out.println("Default user already exists.");
         }
+
+        // Initialize a default doctor user
+        if (!userRepository.existsByDni("87654321")) {
+            System.out.println("Creating default doctor user...");
+            User doctor = new User();
+            doctor.setDni("87654321");
+            doctor.setEmail("doctor@example.com");
+            doctor.setFullName("Default Doctor");
+            doctor.setPassword(passwordEncoder.encode("doctor123"));
+
+            Set<Role> doctorRoles = new HashSet<>();
+            Role doctorRole = roleRepository.findByName(ERole.ROLE_MEDICO).orElse(null);
+            if (doctorRole != null) {
+                doctorRoles.add(doctorRole);
+            }
+            doctor.setRoles(doctorRoles);
+
+            userRepository.save(doctor);
+            System.out.println("Default doctor user created.");
+        } else {
+            System.out.println("Default doctor user already exists.");
+        }
+
+        // Initialize a default admin user
+        if (!userRepository.existsByDni("11223344")) {
+            System.out.println("Creating default admin user...");
+            User admin = new User();
+            admin.setDni("11223344");
+            admin.setEmail("admin@example.com");
+            admin.setFullName("Default Admin");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+
+            Set<Role> adminRoles = new HashSet<>();
+            Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN).orElse(null);
+            if (adminRole != null) {
+                adminRoles.add(adminRole);
+            }
+            admin.setRoles(adminRoles);
+
+            userRepository.save(admin);
+            System.out.println("Default admin user created.");
+        } else {
+            System.out.println("Default admin user already exists.");
+        }
     }
 }

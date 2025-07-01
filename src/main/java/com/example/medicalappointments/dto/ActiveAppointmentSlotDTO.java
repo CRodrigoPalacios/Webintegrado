@@ -9,6 +9,7 @@ public class ActiveAppointmentSlotDTO {
     private int availableSlots;
     private String doctorName;
     private String doctorSpecialization;
+    private String hospitalName;
 
     public Long getId() {
         return id;
@@ -56,5 +57,13 @@ public class ActiveAppointmentSlotDTO {
 
     public void setDoctorSpecialization(String doctorSpecialization) {
         this.doctorSpecialization = doctorSpecialization;
+    }
+
+    public String getHospitalName() {
+        return hospitalName;
+    }
+
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 }

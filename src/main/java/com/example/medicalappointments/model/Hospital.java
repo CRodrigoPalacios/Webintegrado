@@ -23,4 +23,8 @@ public class Hospital {
         this.name = name;
         this.address = address;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }
