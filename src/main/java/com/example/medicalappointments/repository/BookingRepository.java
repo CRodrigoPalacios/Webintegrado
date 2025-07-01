@@ -14,4 +14,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     Optional<Booking> findByConfirmationToken(String confirmationToken);
 
     Optional<Booking> findByPatientAndAppointmentSlot(User patient, AppointmentSlot appointmentSlot);
+
+    java.util.List<Booking> findByAppointmentSlot_DoctorAndStatus(User doctor, com.example.medicalappointments.model.BookingStatus status);
+
+    java.util.List<Booking> findByPatientAndStatus(User patient, com.example.medicalappointments.model.BookingStatus status);
 }

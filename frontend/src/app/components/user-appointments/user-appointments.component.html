@@ -1,0 +1,25 @@
+<div class="user-appointments">
+  <h2>Upcoming Appointments</h2>
+  <div *ngIf="upcomingAppointments.length === 0">No upcoming appointments.</div>
+  <ul>
+    <li *ngFor="let appointment of upcomingAppointments">
+      <strong>Doctor:</strong> {{ appointment.appointmentSlot.doctor.fullName }}<br>
+      <strong>Hospital:</strong> {{ appointment.appointmentSlot.hospital?.name || 'N/A' }}<br>
+      <strong>Date:</strong> {{ appointment.appointmentSlot.appointmentTime | date:'short' }}<br>
+      <strong>Status:</strong> {{ appointment.status }}
+    </li>
+  </ul>
+
+  <h2>Completed Appointments</h2>
+  <div *ngIf="completedAppointments.length === 0">No completed appointments.</div>
+  <ul>
+    <li *ngFor="let appointment of completedAppointments">
+      <strong>Doctor:</strong> {{ appointment.appointmentSlot.doctor.fullName }}<br>
+      <strong>Hospital:</strong> {{ appointment.appointmentSlot.hospital?.name || 'N/A' }}<br>
+      <strong>Date:</strong> {{ appointment.appointmentSlot.appointmentTime | date:'short' }}<br>
+      <strong>Status:</strong> {{ appointment.status }}
+    </li>
+  </ul>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+</div>

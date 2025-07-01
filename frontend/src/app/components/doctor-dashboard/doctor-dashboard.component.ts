@@ -16,6 +16,8 @@ export class DoctorDashboardComponent implements OnInit {
   openDuration: number = 1;
   hospitals: any[] = [];
   appointmentSlots: any[] = [];
+  bookingsPending: any[] = [];
+  bookingsConfirmed: any[] = [];
   message: string = '';
 
   constructor(
@@ -30,6 +32,8 @@ export class DoctorDashboardComponent implements OnInit {
     this.loadHospitals();
     if (this.doctorId) {
       this.loadAppointmentSlots();
+      this.loadBookings('PENDING_CONFIRMATION');
+      this.loadBookings('CONFIRMED');
     }
   }
 
@@ -52,6 +56,21 @@ export class DoctorDashboardComponent implements OnInit {
       },
       error: (err: any) => {
         console.error('Error loading appointment slots', err);
+      }
+    });
+  }
+
+  loadBookings(status: string): void {
+    this.appointmentService.getDoctorBookings(status).subscribe({
+      next: (data) => {
+        if (status === 'PENDING_CONFIRMATION') {
+          this.bookingsPending = data;
+        } else if (status === 'CONFIRMED') {
+          this.bookingsConfirmed = data;
+        }
+      },
+      error: (err) => {
+        console.error('Error loading bookings', err);
       }
     });
   }

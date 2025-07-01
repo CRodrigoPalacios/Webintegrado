@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.medicalappointments.dto.ActiveAppointmentSlotDTO;
 import com.example.medicalappointments.dto.AppointmentSlotDTO;
@@ -21,6 +22,7 @@ import com.example.medicalappointments.model.User;
 import com.example.medicalappointments.repository.AppointmentSlotRepository;
 import com.example.medicalappointments.repository.HospitalRepository;
 import com.example.medicalappointments.repository.UserRepository;
+import com.example.medicalappointments.service.BookingService;
 
 @RestController
 @RequestMapping("/api/doctor")
@@ -34,6 +36,9 @@ public class DoctorController {
 
     @Autowired
     private HospitalRepository hospitalRepository;
+
+    @Autowired
+    private BookingService bookingService;
 
     @PostMapping("/slots")
     @PreAuthorize("hasRole('MEDICO') or hasRole('ADMIN')")
@@ -74,5 +79,25 @@ public class DoctorController {
             activeSlots.add(dto);
         }
         return activeSlots;
+    }
+
+    @GetMapping("/bookings")
+    @PreAuthorize("hasRole('MEDICO')")
+    public ResponseEntity<?> getDoctorBookings(@RequestParam("status") String statusStr) {
+        User doctor = userRepository.findById(getCurrentUserId()).orElseThrow(() -> new RuntimeException("Doctor not found"));
+        com.example.medicalappointments.model.BookingStatus status;
+        try {
+            status = com.example.medicalappointments.model.BookingStatus.valueOf(statusStr.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Invalid booking status"));
+        }
+        java.util.List<com.example.medicalappointments.model.Booking> bookings = bookingService.getBookingsForDoctorAndStatus(doctor, status);
+        return ResponseEntity.ok(bookings);
+    }
+
+    private Long getCurrentUserId() {
+        // Implement logic to get current authenticated user's ID, e.g., from SecurityContext
+        // Placeholder implementation:
+        return 1L;
     }
 }

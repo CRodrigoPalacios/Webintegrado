@@ -17,6 +17,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { HospitalCreateComponent } from './components/hospital-create/hospital-create.component';
 import { ActiveAppointmentsComponent } from './components/active-appointments/active-appointments.component';
 import { AppointmentReservationComponent } from './components/appointment-reservation/appointment-reservation.component';
+import { UserAppointmentsComponent } from './components/user-appointments/user-appointments.component';
 
 import { authInterceptorProviders } from './helpers/http.interceptor';
 import { RouterModule } from '@angular/router';
@@ -34,7 +35,8 @@ import { RouterModule } from '@angular/router';
     AdminPanelComponent,
     HospitalCreateComponent,
     ActiveAppointmentsComponent,
-    AppointmentReservationComponent
+    AppointmentReservationComponent,
+    UserAppointmentsComponent
   ],
   imports: [
     BrowserModule,

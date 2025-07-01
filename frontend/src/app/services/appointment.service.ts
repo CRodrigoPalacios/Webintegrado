@@ -15,6 +15,10 @@ export class AppointmentService {
     return this.http.get(API_URL + 'doctor/active-slots');
   }
 
+  getDoctorBookings(status: string): Observable<any> {
+    return this.http.get(API_URL + `doctor/bookings?status=${status}`);
+  }
+
   createBooking(userId: number, appointmentSlotId: number): Observable<any> {
     return this.http.post(API_URL + `bookings/${userId}/${appointmentSlotId}`, null);
   }
@@ -23,7 +27,7 @@ export class AppointmentService {
     return this.http.post(API_URL + 'doctor/slots', appointmentSlot);
   }
 
-  getUserBookings(userId: number): Observable<any> {
-    return this.http.get(API_URL + `booking/user/${userId}`);
+  getUserBookings(status: string): Observable<any> {
+    return this.http.get(API_URL + `bookings/user?status=${status}`);
   }
 }

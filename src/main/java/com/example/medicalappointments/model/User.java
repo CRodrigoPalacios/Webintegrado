@@ -22,7 +22,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @NotBlank
     @Size(max = 50)
@@ -54,10 +60,6 @@ public class User {
         this.password = password;
         this.dni = dni;
         this.fullName = fullName;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     

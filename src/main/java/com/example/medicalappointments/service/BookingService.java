@@ -59,6 +59,14 @@ public class BookingService {
         return booking;
     }
 
+    public java.util.List<Booking> getBookingsForDoctorAndStatus(User doctor, com.example.medicalappointments.model.BookingStatus status) {
+        return bookingRepository.findByAppointmentSlot_DoctorAndStatus(doctor, status);
+    }
+
+    public java.util.List<Booking> getBookingsForPatientAndStatus(User patient, com.example.medicalappointments.model.BookingStatus status) {
+        return bookingRepository.findByPatientAndStatus(patient, status);
+    }
+
     public Booking confirmBooking(String token) {
         Booking booking = bookingRepository.findByConfirmationToken(token).orElseThrow(() -> new RuntimeException("Invalid token"));
 

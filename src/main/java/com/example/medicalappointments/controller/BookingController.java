@@ -1,11 +1,15 @@
 package com.example.medicalappointments.controller;
 
 import com.example.medicalappointments.dto.MessageResponse;
+import com.example.medicalappointments.model.User;
 import com.example.medicalappointments.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -34,5 +38,32 @@ public class BookingController {
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
+    }
+
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getUserBookings(@RequestParam("status") String statusStr) {
+        User user = getCurrentUser();
+        com.example.medicalappointments.model.BookingStatus status;
+        try {
+            status = com.example.medicalappointments.model.BookingStatus.valueOf(statusStr.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Invalid booking status"));
+        }
+        java.util.List<com.example.medicalappointments.model.Booking> bookings = bookingService.getBookingsForPatientAndStatus(user, status);
+        return ResponseEntity.ok(bookings);
+    }
+
+    private User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof com.example.medicalappointments.service.UserDetailsImpl) {
+            com.example.medicalappointments.service.UserDetailsImpl userDetails = (com.example.medicalappointments.service.UserDetailsImpl) authentication.getPrincipal();
+            User user = new User();
+            user.setId(userDetails.getId());
+            user.setDni(userDetails.getDni());
+            user.setEmail(userDetails.getEmail());
+            return user;
+        }
+        throw new RuntimeException("User not authenticated");
     }
 }

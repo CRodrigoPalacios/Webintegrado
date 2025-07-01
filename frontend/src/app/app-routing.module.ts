@@ -10,6 +10,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { HospitalCreateComponent } from './components/hospital-create/hospital-create.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { AppointmentReservationComponent } from './components/appointment-reservation/appointment-reservation.component';
+import { UserAppointmentsComponent } from './components/user-appointments/user-appointments.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,6 +23,8 @@ const routes: Routes = [
     ] },
   { path: 'appointment-reservation', component: AppointmentReservationComponent, canActivate: [AuthGuard] },
   { path: 'patient', component: PatientDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'doctor-dashboard', component: DoctorDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'user-appointments', component: UserAppointmentsComponent, canActivate: [AuthGuard] },
   { path: 'confirm-appointment', component: BookingConfirmationComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
