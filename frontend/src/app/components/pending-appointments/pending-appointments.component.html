@@ -1,0 +1,13 @@
+<div class="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-4">Pending Appointments for All Doctors</h2>
+  <div *ngIf="message" class="mb-4 text-red-600">{{ message }}</div>
+  <div *ngIf="bookings.length === 0" class="text-gray-600">No pending appointments found.</div>
+  <div *ngFor="let booking of bookings" class="mb-4 p-4 border border-gray-300 rounded shadow-sm">
+    <p><strong>Patient:</strong> {{ booking.patient.fullName }}</p>
+    <p><strong>Doctor:</strong> {{ booking.appointmentSlot.doctor.fullName }}</p>
+    <p><strong>Specialization:</strong> {{ booking.appointmentSlot.doctor.specialization }}</p>
+    <p><strong>Hospital:</strong> {{ booking.appointmentSlot.hospital?.name || 'N/A' }}</p>
+    <p><strong>Appointment Time:</strong> {{ booking.appointmentSlot.appointmentTime | date:'medium' }}</p>
+    <p><strong>Status:</strong> {{ booking.status }}</p>
+  </div>
+</div>

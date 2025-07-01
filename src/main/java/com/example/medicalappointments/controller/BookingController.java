@@ -30,6 +30,13 @@ public class BookingController {
         }
     }
 
+    @GetMapping("/pending")
+    @PreAuthorize("hasRole('MEDICO') or hasRole('ADMIN')")
+    public ResponseEntity<?> getAllPendingBookings() {
+        java.util.List<com.example.medicalappointments.model.Booking> bookings = bookingService.getAllBookingsByStatus(com.example.medicalappointments.model.BookingStatus.valueOf("PENDING"));
+        return ResponseEntity.ok(bookings);
+    }
+
     @GetMapping("/confirm")
     public ResponseEntity<?> confirmBooking(@RequestParam("token") String token) {
         try {

@@ -11,6 +11,8 @@ import { HospitalCreateComponent } from './components/hospital-create/hospital-c
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { AppointmentReservationComponent } from './components/appointment-reservation/appointment-reservation.component';
 import { UserAppointmentsComponent } from './components/user-appointments/user-appointments.component';
+import { UserModificationComponent } from './components/user-modification/user-modification.component';
+import { PendingAppointmentsComponent } from './components/pending-appointments/pending-appointments.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,13 +21,15 @@ const routes: Routes = [
   { path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthGuard], data: { roles: ['MEDICO', 'ADMIN'] }, children: [
       { path: 'crear-citas', component: DoctorDashboardComponent },
       { path: 'agregar-hospitales', component: HospitalCreateComponent },
+      { path: 'modificar-usuarios', component: UserModificationComponent },
+      { path: 'citas-pendientes', component: PendingAppointmentsComponent },
       // Other child routes for admin panel sections can be added here
     ] },
   { path: 'appointment-reservation', component: AppointmentReservationComponent, canActivate: [AuthGuard] },
   { path: 'patient', component: PatientDashboardComponent, canActivate: [AuthGuard] },
   { path: 'doctor-dashboard', component: DoctorDashboardComponent, canActivate: [AuthGuard] },
   { path: 'user-appointments', component: UserAppointmentsComponent, canActivate: [AuthGuard] },
-  { path: 'confirm-appointment', component: BookingConfirmationComponent },
+  { path: 'confirm-appointment', component: BookingConfirmationComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

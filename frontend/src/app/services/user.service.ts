@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const API_URL = 'http://localhost:8080/api/';
@@ -11,11 +11,19 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<any> {
-    return this.http.get(API_URL + 'users');
+  getUsers(filterName?: string): Observable<any> {
+    let params = new HttpParams();
+    if (filterName) {
+      params = params.set('name', filterName);
+    }
+    return this.http.get(API_URL + 'users', { params });
   }
 
-  updateUserRole(userId: number, role: string): Observable<any> {
-    return this.http.put(API_URL + 'users/' + userId + '/role', { role });
+  updateUserRoles(userId: number, roles: string[]): Observable<any> {
+    return this.http.put(API_URL + 'users/' + userId + '/roles', roles);
+  }
+
+  banUser(userId: number, banned: boolean): Observable<any> {
+    return this.http.put(API_URL + 'users/' + userId + '/ban', banned);
   }
 }

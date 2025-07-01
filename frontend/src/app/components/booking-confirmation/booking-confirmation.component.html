@@ -1,11 +1,8 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
-    <h3 class="text-2xl font-bold text-center">Booking Confirmation</h3>
-    <div [ngClass]="{'text-green-600': !isError, 'text-red-600': isError}" class="mt-4 text-center">
-      {{ message }}
-    </div>
-    <div class="mt-4 text-center">
-      <a routerLink="/home" class="text-blue-500 hover:underline">Go to Home</a>
-    </div>
-  </div>
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-4">Booking Confirmation</h2>
+  <p>Your booking has been successfully created.</p>
+  <p class="mt-4">Please check your email for confirmation details.</p>
+  <p class="mt-4">Booking Token:</p>
+  <div class="bg-gray-100 p-2 rounded text-sm break-words">{{ token }}</div>
+  <button class="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" (click)="goHome()">Back to Home</button>
 </div>

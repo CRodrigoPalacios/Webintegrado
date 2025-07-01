@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from '../../services/appointment.service';
 import { TokenStorageService } from '../../services/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-reservation',
@@ -16,7 +17,8 @@ export class AppointmentReservationComponent implements OnInit {
 
   constructor(
     private appointmentService: AppointmentService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -63,7 +65,12 @@ export class AppointmentReservationComponent implements OnInit {
     this.appointmentService.createBooking(user.id, slot.id).subscribe({
       next: (data) => {
         this.message = data.message || 'Reserva realizada con éxito.';
-        this.loadAppointmentSlots();
+        // Navigate to booking confirmation page with token from response
+        if (data && data.token) {
+          this.router.navigate(['/confirm-appointment'], { queryParams: { token: data.token } });
+        } else {
+          this.loadAppointmentSlots();
+        }
       },
       error: (err) => {
         this.message = 'Error al reservar la cita.';

@@ -70,13 +70,17 @@ public class BookingService {
     public Booking confirmBooking(String token) {
         Booking booking = bookingRepository.findByConfirmationToken(token).orElseThrow(() -> new RuntimeException("Invalid token"));
 
-        if (booking.getTokenExpiryDate().isBefore(LocalDateTime.now())) {
+        if (booking.getTokenExpiryDate().isBefore(java.time.LocalDateTime.now())) {
             throw new RuntimeException("Token expired");
         }
 
-        booking.setStatus(BookingStatus.CONFIRMED);
+        booking.setStatus(com.example.medicalappointments.model.BookingStatus.CONFIRMED);
         bookingRepository.save(booking);
 
         return booking;
+    }
+
+    public java.util.List<Booking> getAllBookingsByStatus(com.example.medicalappointments.model.BookingStatus status) {
+        return bookingRepository.findByStatus(status);
     }
 }

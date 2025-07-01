@@ -1,0 +1,65 @@
+<div class="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-4">User Management</h2>
+
+  <div class="mb-4">
+    <input
+      type="text"
+      placeholder="Filter by name"
+      [(ngModel)]="filterName"
+      (input)="filterUsers()"
+      class="w-full border border-gray-300 rounded px-3 py-2"
+    />
+  </div>
+
+  <table class="w-full border-collapse border border-gray-300">
+    <thead>
+      <tr>
+        <th class="border border-gray-300 px-4 py-2">Email</th>
+        <th class="border border-gray-300 px-4 py-2">Full Name</th>
+        <th class="border border-gray-300 px-4 py-2">DNI</th>
+        <th class="border border-gray-300 px-4 py-2">Specialization</th>
+        <th class="border border-gray-300 px-4 py-2">Roles</th>
+        <th class="border border-gray-300 px-4 py-2">Banned</th>
+        <th class="border border-gray-300 px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" (click)="selectUser(user)" [class.bg-gray-100]="selectedUser?.id === user.id" class="cursor-pointer">
+        <td class="border border-gray-300 px-4 py-2">{{ user.email }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.fullName }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.dni }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.specialization }}</td>
+        <td class="border border-gray-300 px-4 py-2">
+          <ul>
+            <li *ngFor="let role of user.roles">{{ role.name }}</li>
+          </ul>
+        </td>
+        <td class="border border-gray-300 px-4 py-2">{{ user.banned ? 'Yes' : 'No' }}</td>
+        <td class="border border-gray-300 px-4 py-2">
+          <button (click)="banUser(user, !user.banned); $event.stopPropagation()" class="px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700">
+            {{ user.banned ? 'Unban' : 'Ban' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="selectedUser" class="mt-6 p-4 border border-gray-300 rounded bg-gray-50">
+    <h3 class="text-xl font-semibold mb-2">Edit User Roles</h3>
+    <form (ngSubmit)="onSubmit()">
+      <div *ngFor="let role of ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MEDICO']" class="mb-2">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="hasRole(role)"
+            (change)="onRoleChange(role, $any($event.target).checked)"
+          />
+          {{ role }}
+        </label>
+      </div>
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save Roles</button>
+    </form>
+  </div>
+
+  <div *ngIf="message" class="mt-4 text-green-600">{{ message }}</div>
+</div>

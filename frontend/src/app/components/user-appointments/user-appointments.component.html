@@ -1,25 +1,25 @@
-<div class="user-appointments">
-  <h2>Upcoming Appointments</h2>
-  <div *ngIf="upcomingAppointments.length === 0">No upcoming appointments.</div>
-  <ul>
-    <li *ngFor="let appointment of upcomingAppointments">
-      <strong>Doctor:</strong> {{ appointment.appointmentSlot.doctor.fullName }}<br>
-      <strong>Hospital:</strong> {{ appointment.appointmentSlot.hospital?.name || 'N/A' }}<br>
-      <strong>Date:</strong> {{ appointment.appointmentSlot.appointmentTime | date:'short' }}<br>
-      <strong>Status:</strong> {{ appointment.status }}
-    </li>
-  </ul>
+<div class="user-appointments p-4">
+  <h2 class="text-xl font-semibold mb-4">Upcoming Appointments</h2>
+  <div *ngIf="upcomingAppointments.length === 0" class="mb-4">No upcoming appointments.</div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+    <div *ngFor="let appointment of upcomingAppointments" class="bg-white shadow-md rounded-lg p-4 border border-gray-200">
+      <p><strong>Doctor:</strong> {{ appointment.appointmentSlot.doctor.fullName }}</p>
+      <p><strong>Hospital:</strong> {{ appointment.appointmentSlot.hospital?.name || 'N/A' }}</p>
+      <p><strong>Date:</strong> {{ appointment.appointmentSlot.appointmentTime | date:'short' }}</p>
+      <p><strong>Status:</strong> {{ appointment.status }}</p>
+    </div>
+  </div>
 
-  <h2>Completed Appointments</h2>
-  <div *ngIf="completedAppointments.length === 0">No completed appointments.</div>
-  <ul>
-    <li *ngFor="let appointment of completedAppointments">
-      <strong>Doctor:</strong> {{ appointment.appointmentSlot.doctor.fullName }}<br>
-      <strong>Hospital:</strong> {{ appointment.appointmentSlot.hospital?.name || 'N/A' }}<br>
-      <strong>Date:</strong> {{ appointment.appointmentSlot.appointmentTime | date:'short' }}<br>
-      <strong>Status:</strong> {{ appointment.status }}
-    </li>
-  </ul>
+  <h2 class="text-xl font-semibold mb-4">Completed Appointments</h2>
+  <div *ngIf="completedAppointments.length === 0" class="mb-4">No completed appointments.</div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div *ngFor="let appointment of completedAppointments" class="bg-white shadow-md rounded-lg p-4 border border-gray-200">
+      <p><strong>Doctor:</strong> {{ appointment.appointmentSlot.doctor.fullName }}</p>
+      <p><strong>Hospital:</strong> {{ appointment.appointmentSlot.hospital?.name || 'N/A' }}</p>
+      <p><strong>Date:</strong> {{ appointment.appointmentSlot.appointmentTime | date:'short' }}</p>
+      <p><strong>Status:</strong> {{ appointment.status }}</p>
+    </div>
+  </div>
 
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  <div *ngIf="errorMessage" class="text-red-600 mt-4">{{ errorMessage }}</div>
 </div>

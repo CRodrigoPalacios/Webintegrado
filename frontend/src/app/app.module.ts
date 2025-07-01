@@ -18,6 +18,8 @@ import { HospitalCreateComponent } from './components/hospital-create/hospital-c
 import { ActiveAppointmentsComponent } from './components/active-appointments/active-appointments.component';
 import { AppointmentReservationComponent } from './components/appointment-reservation/appointment-reservation.component';
 import { UserAppointmentsComponent } from './components/user-appointments/user-appointments.component';
+import { UserModificationComponent } from './components/user-modification/user-modification.component';
+import { PendingAppointmentsComponent } from './components/pending-appointments/pending-appointments.component';
 
 import { authInterceptorProviders } from './helpers/http.interceptor';
 import { RouterModule } from '@angular/router';
@@ -36,7 +38,9 @@ import { RouterModule } from '@angular/router';
     HospitalCreateComponent,
     ActiveAppointmentsComponent,
     AppointmentReservationComponent,
-    UserAppointmentsComponent
+    UserAppointmentsComponent,
+    UserModificationComponent,
+    PendingAppointmentsComponent
   ],
   imports: [
     BrowserModule,

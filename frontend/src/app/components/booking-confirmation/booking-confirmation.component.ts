@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookingService } from '../../services/booking.service';
 
 @Component({
   selector: 'app-booking-confirmation',
@@ -8,33 +7,18 @@ import { BookingService } from '../../services/booking.service';
   styleUrls: ['./booking-confirmation.component.css']
 })
 export class BookingConfirmationComponent implements OnInit {
-  message: string = 'Confirming your booking...';
-  isError: boolean = false;
+  token: string | null = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private bookingService: BookingService
-  ) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      const token = params['token'];
-      if (token) {
-        this.bookingService.confirmBooking(token).subscribe(
-          response => {
-            this.message = response.message;
-            this.isError = false;
-          },
-          error => {
-            this.message = error.error.message || 'Error confirming booking.';
-            this.isError = true;
-          }
-        );
-      } else {
-        this.message = 'No confirmation token found.';
-        this.isError = true;
-      }
-    });
+    this.token = this.route.snapshot.queryParamMap.get('token');
+    if (!this.token) {
+      this.router.navigate(['/']);
+    }
+  }
+
+  goHome(): void {
+    this.router.navigate(['/home']);
   }
 }
