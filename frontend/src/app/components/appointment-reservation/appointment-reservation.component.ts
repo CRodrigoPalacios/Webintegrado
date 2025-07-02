@@ -64,13 +64,10 @@ export class AppointmentReservationComponent implements OnInit {
     }
     this.appointmentService.createBooking(user.id, slot.id).subscribe({
       next: (data) => {
+        alert('Reserva realizada con éxito. Por favor, verifica tu correo para confirmar la cita.');
         this.message = data.message || 'Reserva realizada con éxito.';
-        // Navigate to booking confirmation page with token from response
-        if (data && data.token) {
-          this.router.navigate(['/confirm-appointment'], { queryParams: { token: data.token } });
-        } else {
-          this.loadAppointmentSlots();
-        }
+        // Do not navigate to confirmation page automatically
+        this.loadAppointmentSlots();
       },
       error: (err) => {
         this.message = 'Error al reservar la cita.';
