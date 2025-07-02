@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ import { UserModificationComponent } from './components/user-modification/user-m
 import { PendingAppointmentsComponent } from './components/pending-appointments/pending-appointments.component';
 import { PendingAppointmentsDoctorComponent } from './components/pending-appointments-doctor/pending-appointments-doctor.component';
 import { CompletedCancelledAppointmentsComponent } from './components/completed-cancelled-appointments/completed-cancelled-appointments.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CompletedCancelledAppointmentsComponent } from './components/completed-
     UserModificationComponent,
     PendingAppointmentsComponent,
     PendingAppointmentsDoctorComponent,
-    CompletedCancelledAppointmentsComponent
+    CompletedCancelledAppointmentsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { CompletedCancelledAppointmentsComponent } from './components/completed-
     CommonModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

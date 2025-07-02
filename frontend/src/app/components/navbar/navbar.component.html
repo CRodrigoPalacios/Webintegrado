@@ -1,14 +1,9 @@
-<nav class="bg-blue-600 p-4 text-white flex justify-between items-center">
-  <div class="text-xl font-bold">
-    Admin Panel
-  </div>
-  <div *ngIf="isLoggedIn; else loggedOut" class="flex items-center space-x-4">
-    <span>Welcome, {{ username }}</span>
-    <a *ngIf="isLoggedIn" routerLink="/admin-panel" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded">Admin Panel</a>
-    <button (click)="logout()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">Logout</button>
-  </div>
-  <ng-template #loggedOut>
-    <a routerLink="/login" class="mr-4 hover:underline">Login</a>
-    <a routerLink="/register" class="hover:underline">Register</a>
-  </ng-template>
+<nav class="bg-gray-800 p-4 text-white flex justify-between items-center">
+  <div class="text-lg font-bold">Medical Appointments</div>
+  <ul class="flex space-x-4">
+    <li><a routerLink="/home" routerLinkActive="underline" class="hover:underline">Home</a></li>
+    <li><a routerLink="/login" routerLinkActive="underline" class="hover:underline">Login</a></li>
+    <li><a routerLink="/register" routerLinkActive="underline" class="hover:underline">Register</a></li>
+    <li><a routerLink="/admin-panel" routerLinkActive="underline" class="hover:underline">Admin Panel</a></li>
+  </ul>
 </nav>
