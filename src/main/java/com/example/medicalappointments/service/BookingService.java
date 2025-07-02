@@ -9,6 +9,8 @@ import com.example.medicalappointments.repository.BookingRepository;
 import com.example.medicalappointments.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -46,7 +48,8 @@ public class BookingService {
         Booking booking = new Booking(patient, appointmentSlot);
         booking.setSlotNumber(slotNumber);
         booking.setConfirmationToken(UUID.randomUUID().toString());
-        booking.setTokenExpiryDate(LocalDateTime.now().plusHours(24));
+        booking.setTokenExpiryDate(LocalDateTime.now().plusMinutes(5));
+        booking.setCompleted(false);
 
         appointmentSlot.setAvailableSlots(appointmentSlot.getAvailableSlots() - 1);
         appointmentSlotRepository.save(appointmentSlot);
@@ -67,6 +70,7 @@ public class BookingService {
         return bookingRepository.findByPatientAndStatus(patient, status);
     }
 
+    @Transactional
     public Booking confirmBooking(String token) {
         Booking booking = bookingRepository.findByConfirmationToken(token).orElseThrow(() -> new RuntimeException("Invalid token"));
 
@@ -75,6 +79,8 @@ public class BookingService {
         }
 
         booking.setStatus(com.example.medicalappointments.model.BookingStatus.CONFIRMED);
+        booking.setConfirmationToken(null);
+        booking.setTokenExpiryDate(null);
         bookingRepository.save(booking);
 
         return booking;
@@ -91,5 +97,35 @@ public class BookingService {
 
     public java.util.List<Booking> getBookingsByStatuses(java.util.List<com.example.medicalappointments.model.BookingStatus> statuses) {
         return bookingRepository.findByStatusIn(statuses);
+    }
+
+    // Scheduled task to cancel unconfirmed bookings after 5 minutes and release slots
+    @Scheduled(fixedRate = 60000) // runs every 1 minute
+    @Transactional
+    public void cancelExpiredBookings() {
+        LocalDateTime now = LocalDateTime.now();
+        java.util.List<Booking> expiredBookings = bookingRepository.findByStatusAndTokenExpiryDateBefore(com.example.medicalappointments.model.BookingStatus.PENDING_CONFIRMATION, now);
+        for (Booking booking : expiredBookings) {
+            booking.setStatus(com.example.medicalappointments.model.BookingStatus.CANCELLED);
+            booking.setConfirmationToken(null);
+            booking.setTokenExpiryDate(null);
+            bookingRepository.save(booking);
+
+            AppointmentSlot slot = booking.getAppointmentSlot();
+            slot.setAvailableSlots(slot.getAvailableSlots() + 1);
+            appointmentSlotRepository.save(slot);
+        }
+    }
+
+    // Scheduled task to mark bookings as completed on appointment day
+    @Scheduled(cron = "0 0 0 * * ?") // runs daily at midnight
+    @Transactional
+    public void markCompletedBookings() {
+        LocalDateTime now = LocalDateTime.now();
+        java.util.List<Booking> bookingsToComplete = bookingRepository.findByStatusAndCompletedFalseAndAppointmentSlot_AppointmentTimeBefore(com.example.medicalappointments.model.BookingStatus.CONFIRMED, now);
+        for (Booking booking : bookingsToComplete) {
+            booking.setCompleted(true);
+            bookingRepository.save(booking);
+        }
     }
 }

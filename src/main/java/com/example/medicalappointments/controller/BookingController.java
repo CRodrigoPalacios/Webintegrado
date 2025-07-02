@@ -54,7 +54,11 @@ public class BookingController {
                         com.example.medicalappointments.model.BookingStatus.CANCELLED
                 )
         );
-        return ResponseEntity.ok(bookings);
+        java.util.List<com.example.medicalappointments.dto.BookingResponseDTO> response = new java.util.ArrayList<>();
+        for (com.example.medicalappointments.model.Booking booking : bookings) {
+            response.add(new com.example.medicalappointments.dto.BookingResponseDTO(booking));
+        }
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/confirm")

@@ -27,12 +27,15 @@ public class Booking {
 
     private Integer slotNumber;
 
+    private boolean completed = false;
+
     public Booking() {}
 
     public Booking(User patient, AppointmentSlot appointmentSlot) {
         this.patient = patient;
         this.appointmentSlot = appointmentSlot;
         this.status = BookingStatus.PENDING_CONFIRMATION;
+        this.completed = false;
     }
 
     public Long getId() {
@@ -85,5 +88,13 @@ public class Booking {
 
     public void setSlotNumber(Integer slotNumber) {
         this.slotNumber = slotNumber;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }

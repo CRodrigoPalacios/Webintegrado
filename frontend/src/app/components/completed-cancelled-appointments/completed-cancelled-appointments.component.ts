@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { BookingService } from '../../services/booking.service';
 
 @Component({
   selector: 'app-completed-cancelled-appointments',
@@ -10,14 +10,14 @@ export class CompletedCancelledAppointmentsComponent implements OnInit {
   bookings: any[] = [];
   message: string = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private bookingService: BookingService) { }
 
   ngOnInit(): void {
     this.loadCompletedCancelledBookings();
   }
 
   loadCompletedCancelledBookings(): void {
-    this.http.get('/api/bookings/completed-cancelled').subscribe({
+    this.bookingService.getCompletedCancelledBookings().subscribe({
       next: (data: any) => {
         this.bookings = data;
       },

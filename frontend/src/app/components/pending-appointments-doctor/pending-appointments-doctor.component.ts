@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { BookingService } from '../../services/booking.service';
 
 @Component({
   selector: 'app-pending-appointments-doctor',
@@ -10,14 +10,14 @@ export class PendingAppointmentsDoctorComponent implements OnInit {
   bookings: any[] = [];
   message: string = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private bookingService: BookingService) { }
 
   ngOnInit(): void {
     this.loadPendingBookingsByDoctor();
   }
 
   loadPendingBookingsByDoctor(): void {
-    this.http.get('/api/bookings/pending-by-doctor').subscribe({
+    this.bookingService.getPendingBookingsByDoctor().subscribe({
       next: (data: any) => {
         this.bookings = data;
       },
