@@ -20,4 +20,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByAppointmentSlot_DoctorAndStatus(User doctor, BookingStatus status);
 
     List<Booking> findByStatus(BookingStatus status);
+
+    List<Booking> findByStatusIn(List<BookingStatus> statuses);
 }

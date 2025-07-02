@@ -19,6 +19,14 @@ export class UserService {
     return this.http.get(API_URL + 'users', { params });
   }
 
+  getUserCounts(): Observable<any> {
+    return this.http.get(API_URL + 'users/counts');
+  }
+
+  getDoctors(): Observable<any> {
+    return this.http.get(API_URL + 'users/doctors');
+  }
+
   updateUserRoles(userId: number, roles: string[]): Observable<any> {
     return this.http.put(API_URL + 'users/' + userId + '/roles', roles);
   }

@@ -1,6 +1,7 @@
 package com.example.medicalappointments.repository;
 
 import com.example.medicalappointments.model.User;
+import com.example.medicalappointments.model.ERole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByEmail(String email);
 
     List<User> findByFullNameContainingIgnoreCase(String name);
+
+    long countByRoles_Name(ERole role);
+
+    List<User> findByRoles_Name(ERole role);
 }

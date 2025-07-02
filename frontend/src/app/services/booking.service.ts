@@ -18,4 +18,12 @@ export class BookingService {
   confirmBooking(token: string): Observable<any> {
     return this.http.get(API_URL + `confirm?token=${token}`);
   }
+
+  getPendingBookingsByDoctor(): Observable<any> {
+    return this.http.get(API_URL + 'pending-by-doctor');
+  }
+
+  getCompletedCancelledBookings(): Observable<any> {
+    return this.http.get(API_URL + 'completed-cancelled');
+  }
 }

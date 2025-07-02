@@ -83,4 +83,13 @@ public class BookingService {
     public java.util.List<Booking> getAllBookingsByStatus(com.example.medicalappointments.model.BookingStatus status) {
         return bookingRepository.findByStatus(status);
     }
+
+    public java.util.List<Booking> getPendingBookingsByDoctor(Long doctorId) {
+        User doctor = userRepository.findById(doctorId).orElseThrow(() -> new RuntimeException("Doctor not found"));
+        return bookingRepository.findByAppointmentSlot_DoctorAndStatus(doctor, com.example.medicalappointments.model.BookingStatus.PENDING_CONFIRMATION);
+    }
+
+    public java.util.List<Booking> getBookingsByStatuses(java.util.List<com.example.medicalappointments.model.BookingStatus> statuses) {
+        return bookingRepository.findByStatusIn(statuses);
+    }
 }

@@ -15,12 +15,14 @@ import { UserModificationComponent } from './components/user-modification/user-m
 import { PendingAppointmentsComponent } from './components/pending-appointments/pending-appointments.component';
 import { PendingAppointmentsDoctorComponent } from './components/pending-appointments-doctor/pending-appointments-doctor.component';
 import { CompletedCancelledAppointmentsComponent } from './components/completed-cancelled-appointments/completed-cancelled-appointments.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthGuard], data: { roles: ['MEDICO', 'ADMIN'] }, children: [
+      { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'crear-citas', component: DoctorDashboardComponent },
       { path: 'agregar-hospitales', component: HospitalCreateComponent },
       { path: 'modificar-usuarios', component: UserModificationComponent },

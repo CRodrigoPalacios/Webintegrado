@@ -36,6 +36,31 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping("/counts")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getUserCountsByRole() {
+        long totalUsers = userRepository.count();
+        long totalDoctors = userRepository.countByRoles_Name(ERole.ROLE_MEDICO);
+        long totalAdmins = userRepository.countByRoles_Name(ERole.ROLE_ADMIN);
+        long totalPatients = userRepository.countByRoles_Name(ERole.ROLE_USER);
+
+        Map<String, Long> counts = new HashMap<>();
+        counts.put("totalUsers", totalUsers);
+        counts.put("totalDoctors", totalDoctors);
+        counts.put("totalAdmins", totalAdmins);
+        counts.put("totalPatients", totalPatients);
+
+        return ResponseEntity.ok(counts);
+    }
+
+    @GetMapping("/doctors")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getDoctors() {
+        List<User> doctors = userRepository.findByRoles_Name(ERole.ROLE_MEDICO);
+        doctors.forEach(doctor -> doctor.setPassword(null));
+        return ResponseEntity.ok(doctors);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('MEDICO')")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {

@@ -33,7 +33,27 @@ public class BookingController {
     @GetMapping("/pending")
     @PreAuthorize("hasRole('MEDICO') or hasRole('ADMIN')")
     public ResponseEntity<?> getAllPendingBookings() {
-        java.util.List<com.example.medicalappointments.model.Booking> bookings = bookingService.getAllBookingsByStatus(com.example.medicalappointments.model.BookingStatus.valueOf("PENDING"));
+        java.util.List<com.example.medicalappointments.model.Booking> bookings = bookingService.getAllBookingsByStatus(com.example.medicalappointments.model.BookingStatus.PENDING_CONFIRMATION);
+        return ResponseEntity.ok(bookings);
+    }
+
+    @GetMapping("/pending-by-doctor")
+    @PreAuthorize("hasRole('MEDICO')")
+    public ResponseEntity<?> getPendingBookingsByDoctor() {
+        User currentUser = getCurrentUser();
+        java.util.List<com.example.medicalappointments.model.Booking> bookings = bookingService.getPendingBookingsByDoctor(currentUser.getId());
+        return ResponseEntity.ok(bookings);
+    }
+
+    @GetMapping("/completed-cancelled")
+    @PreAuthorize("hasRole('MEDICO') or hasRole('ADMIN')")
+    public ResponseEntity<?> getCompletedCancelledBookings() {
+        java.util.List<com.example.medicalappointments.model.Booking> bookings = bookingService.getBookingsByStatuses(
+                java.util.Arrays.asList(
+                        com.example.medicalappointments.model.BookingStatus.CONFIRMED,
+                        com.example.medicalappointments.model.BookingStatus.CANCELLED
+                )
+        );
         return ResponseEntity.ok(bookings);
     }
 
