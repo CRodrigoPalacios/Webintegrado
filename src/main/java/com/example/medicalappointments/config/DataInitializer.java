@@ -47,7 +47,7 @@ public class DataInitializer implements CommandLineRunner {
             System.out.println("Creating default user...");
             User user = new User();
             user.setDni("12345678");
-            user.setEmail("user@example.com");
+            user.setEmail("carlosrodrigopz@hotmail.com");
             user.setFullName("Default User");
             user.setPassword(passwordEncoder.encode("user123"));
 
