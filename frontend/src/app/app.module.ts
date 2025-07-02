@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,7 @@ import { PendingAppointmentsComponent } from './components/pending-appointments/
 import { PendingAppointmentsDoctorComponent } from './components/pending-appointments-doctor/pending-appointments-doctor.component';
 import { CompletedCancelledAppointmentsComponent } from './components/completed-cancelled-appointments/completed-cancelled-appointments.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { AuthInterceptor } from './helpers/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     BrowserAnimationsModule,
     CommonModule
   ],
-  providers: [],
+  providers: [
+    // Register the AuthInterceptor to add JWT token to requests
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
