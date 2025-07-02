@@ -32,8 +32,6 @@ const routes: Routes = [
       // Other child routes for admin panel sections can be added here
     ] },
   { path: 'appointment-reservation', component: AppointmentReservationComponent, canActivate: [AuthGuard] },
-  { path: 'patient', component: PatientDashboardComponent, canActivate: [AuthGuard] },
-  { path: 'doctor-dashboard', component: DoctorDashboardComponent, canActivate: [AuthGuard] },
   { path: 'user-appointments', component: UserAppointmentsComponent, canActivate: [AuthGuard] },
   { path: 'confirm-appointment', component: BookingConfirmationComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
