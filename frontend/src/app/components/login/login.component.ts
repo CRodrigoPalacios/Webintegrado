@@ -13,13 +13,13 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  
 
   constructor(private authService: AuthService, public tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
+      this.router.navigate(['/home']);
     }
   }
 
@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
-        // Save only user info part to sessionStorage
         const userInfo = {
           id: data.id,
           dni: data.dni,
@@ -39,7 +38,11 @@ export class LoginComponent implements OnInit {
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.reloadPage();
+
+        setTimeout(() => {
+          this.reloadPage();
+        }, 3000);
+
       },
       err => {
         this.errorMessage = err.error.message;

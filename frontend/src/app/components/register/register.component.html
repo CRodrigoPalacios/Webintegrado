@@ -1,69 +1,99 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
-    <h3 class="text-2xl font-bold text-center">Register</h3>
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-50 to-indigo-100 p-4">
+  <div class="w-full max-w-lg px-8 py-10 bg-white rounded-xl shadow-2xl transform transition-all duration-300 hover:shadow-3xl">
+    <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-8 tracking-tight">
+      ¡Regístrate!
+    </h2>
+
     <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-      <div class="mt-4">
-        <div class="mt-4">
-          <label for="dni" class="block">DNI</label>
-          <input type="text" maxlength="8" minlength="8" name="dni" [(ngModel)]="form.dni" required
-                 class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" />
-          <button type="button" (click)="validateDni()" class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700">
-            Validar DNI
-          </button>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="col-span-2">
+          <label for="dni" class="block text-gray-700 text-sm font-semibold mb-2">DNI</label>
+          <div class="flex">
+            <input type="text" maxlength="8" minlength="8" name="dni" [(ngModel)]="form.dni" required
+                   class="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                   placeholder="Ingresa tu DNI" />
+            <button type="button" (click)="validateDni()"
+                    class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-r-lg hover:from-green-600 hover:to-green-700 transition duration-300 transform hover:scale-105">
+              Validar DNI
+            </button>
+          </div>
         </div>
-        <div class="mt-4">
-          <label for="firstName" class="block">Nombres</label>
+
+        <div class="col-span-1">
+          <label for="firstName" class="block text-gray-700 text-sm font-semibold mb-2">Nombres</label>
           <input type="text" name="firstName" [(ngModel)]="form.firstName" readonly
-                 class="w-full px-4 py-2 mt-2 border rounded-md bg-gray-100" />
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed"
+                 placeholder="Se llenará automáticamente" />
         </div>
-        <div class="mt-4">
-          <label for="lastNamePaternal" class="block">Apellido Paterno</label>
+        <div class="col-span-1">
+          <label for="lastNamePaternal" class="block text-gray-700 text-sm font-semibold mb-2">Apellido Paterno</label>
           <input type="text" name="lastNamePaternal" [(ngModel)]="form.lastNamePaternal" readonly
-                 class="w-full px-4 py-2 mt-2 border rounded-md bg-gray-100" />
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed"
+                 placeholder="Se llenará automáticamente" />
         </div>
-        <div class="mt-4">
-          <label for="lastNameMaternal" class="block">Apellido Materno</label>
+        <div class="col-span-1">
+          <label for="lastNameMaternal" class="block text-gray-700 text-sm font-semibold mb-2">Apellido Materno</label>
           <input type="text" name="lastNameMaternal" [(ngModel)]="form.lastNameMaternal" readonly
-                 class="w-full px-4 py-2 mt-2 border rounded-md bg-gray-100" />
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed"
+                 placeholder="Se llenará automáticamente" />
         </div>
-        <div class="mt-4">
-          <label for="email" class="block">Email</label>
-          <input type="email" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                 name="email" [(ngModel)]="form.email" required email #email="ngModel" />
-          <div class="text-red-600" *ngIf="email.errors && f.submitted">
-            <div *ngIf="email.errors['required']">Email is required</div>
-            <div *ngIf="email.errors['email']">Email must be a valid email address</div>
+
+        <div class="col-span-2">
+          <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email</label>
+          <input type="email"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                 name="email" [(ngModel)]="form.email" required email #email="ngModel"
+                 placeholder="tu_email@ejemplo.com" />
+          <div class="text-red-500 text-sm mt-1" *ngIf="email.errors && f.submitted">
+            <div *ngIf="email.errors['required']">El email es requerido.</div>
+            <div *ngIf="email.errors['email']">Por favor, introduce una dirección de email válida.</div>
           </div>
         </div>
-        <div class="mt-4">
-          <label for="password" class="block">Password</label>
-          <input type="password" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                 name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
-          <div class="text-red-600" *ngIf="password.errors && f.submitted">
-            <div *ngIf="password.errors['required']">Password is required</div>
-            <div *ngIf="password.errors['minlength']">Password must be at least 6 characters</div>
+
+        <div class="col-span-1">
+          <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Contraseña</label>
+          <input type="password"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                 name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel"
+                 placeholder="Mínimo 6 caracteres" />
+          <div class="text-red-500 text-sm mt-1" *ngIf="password.errors && f.submitted">
+            <div *ngIf="password.errors['required']">La contraseña es requerida.</div>
+            <div *ngIf="password.errors['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
           </div>
         </div>
-        <div class="mt-4">
-          <label for="confirmPassword" class="block">Confirm Password</label>
-          <input type="password" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                 name="confirmPassword" [(ngModel)]="form.confirmPassword" required minlength="6" #confirmPassword="ngModel" />
-          <div class="text-red-600" *ngIf="confirmPassword.errors && f.submitted">
-            <div *ngIf="confirmPassword.errors['required']">Confirm Password is required</div>
-            <div *ngIf="confirmPassword.errors['minlength']">Confirm Password must be at least 6 characters</div>
+
+        <div class="col-span-1">
+          <label for="confirmPassword" class="block text-gray-700 text-sm font-semibold mb-2">Confirmar Contraseña</label>
+          <input type="password"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                 name="confirmPassword" [(ngModel)]="form.confirmPassword" required minlength="6" #confirmPassword="ngModel"
+                 placeholder="Repite tu contraseña" />
+          <div class="text-red-500 text-sm mt-1" *ngIf="confirmPassword.errors && f.submitted">
+            <div *ngIf="confirmPassword.errors['required']">Confirmar contraseña es requerido.</div>
+            <div *ngIf="confirmPassword.errors['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
           </div>
         </div>
-        <div class="flex items-baseline justify-between">
-          <button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Register</button>
-        </div>
-        <div class="text-red-600" *ngIf="f.submitted && isSignUpFailed">
-          Signup failed: {{ errorMessage }}
-        </div>
+
+      </div>
+
+      <div class="flex justify-center mt-8">
+        <button class="w-full max-w-xs px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-full shadow-lg
+                       hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75
+                       transition duration-300 transform hover:scale-105 active:scale-95">
+          Registrar
+        </button>
+      </div>
+
+      <div class="text-red-500 text-center mt-4 text-sm font-medium" *ngIf="f.submitted && isSignUpFailed">
+        Error en el registro: {{ errorMessage }}
       </div>
     </form>
 
-    <div class="text-green-600" *ngIf="isSuccessful">
-      Your registration is successful!
+    <div class="text-green-600 text-center text-lg font-semibold py-4" *ngIf="isSuccessful">
+      <p class="text-2xl mb-2">¡Tu registro ha sido exitoso!</p>
+      <p class="text-gray-700 text-base">Serás redirigido al login en <span class="font-bold text-blue-600">{{ countdown }}</span> segundos.</p>
+      <p class="mt-2 text-gray-600 text-base">Si no eres redirigido automáticamente, haz clic <a routerLink="/login" class="text-blue-500 hover:underline">aquí</a>.</p>
     </div>
   </div>
 </div>

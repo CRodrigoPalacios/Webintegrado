@@ -1,0 +1,17 @@
+/* src/app/components/login/login.component.css */
+
+.loader {
+  border-top-color: #3B82F6; /* Color azul de Tailwind para la parte animada */
+  /* Puedes cambiar a un morado si prefieres: border-top-color: #9333ea; */
+}
+
+/* Definición de la animación de giro */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Aplicar la animación */
+.animate-spin-slow {
+  animation: spin-slow 1.5s linear infinite; /* Duración de 1.5s, lineal, infinito */
+}

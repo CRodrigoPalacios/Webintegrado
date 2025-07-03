@@ -1,8 +1,151 @@
-<div class="container mx-auto p-8 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-white rounded-lg shadow-lg">
-  <h1 class="text-5xl font-extrabold mb-6 text-center">Welcome to Medical Appointments</h1>
-  <p class="text-xl text-center mb-8">Your trusted platform for managing medical appointments efficiently.</p>
-  <div class="flex justify-center space-x-6">
-    <a routerLink="/login" class="bg-white text-blue-600 font-bold py-3 px-6 rounded shadow hover:bg-gray-100 transition">Login</a>
-    <a routerLink="/register" class="bg-white text-blue-600 font-bold py-3 px-6 rounded shadow hover:bg-gray-100 transition">Register</a>
-  </div>
+<div class="min-h-screen bg-gray-50 font-sans text-gray-800">
+
+
+  <section class="relative bg-blue-600 text-white py-20 md:py-32 overflow-hidden">
+    <div class="container mx-auto px-6 relative z-10 text-center">
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
+        Tu Salud, Nuestra Prioridad
+      </h1>
+      <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+        Agendamiento de Citas Médicas Fácil y Rápido. Conecta con los mejores especialistas y gestiona tu bienestar.
+      </p>
+      <div class="space-x-4">
+        <a routerLink="/agendar-cita" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">
+          Agendar Cita Ahora
+        </a>
+        <a routerLink="/especialistas" class="border border-white text-white font-semibold py-3 px-8 rounded-full hover:bg-white hover:text-blue-600 transition duration-300 ease-in-out">
+          Ver Especialistas
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">¿Por qué elegirnos?</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div class="bg-gray-50 p-8 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300">
+          <div class="text-blue-500 mb-4">
+            <svg class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zm3-11v8m4-4v4m4-8v4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900">Reserva Rápida y Fácil</h3>
+          <p class="text-gray-600">
+            Encuentra y reserva tu cita médica en cuestión de minutos, desde cualquier dispositivo.
+          </p>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300">
+          <div class="text-green-500 mb-4">
+            <svg class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.523 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.523 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900">Amplia Variedad de Especialistas</h3>
+          <p class="text-gray-600">
+            Accede a una red de médicos y clínicas en diversas especialidades.
+          </p>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300">
+          <div class="text-purple-500 mb-4">
+            <svg class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.023 12.023 0 002.944 12c0 3.042 1.157 5.867 3.04 8.618a11.955 11.955 0 0114.112 0c1.883-2.751 3.04-5.576 3.04-8.618a12.023 12.023 0 00-3.56-8.056z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900">Seguridad y Confianza</h3>
+          <p class="text-gray-600">
+            Tus datos y tu historial médico protegidos con los más altos estándares de seguridad.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section class="py-16 md:py-24 bg-gray-100">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-4xl font-bold mb-12 text-gray-800">Nuestros Pilares</h2>
+      <div class="grid md:grid-cols-2 gap-10">
+        <div>
+          <h3 class="text-3xl font-bold mb-4 text-gray-900">Nuestra Visión</h3>
+          <p class="text-lg text-gray-700">
+            Ser la plataforma líder en agendamiento de citas médicas, reconocida por su eficiencia, accesibilidad y el compromiso con la mejora continua de la salud de nuestros usuarios.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-3xl font-bold mb-4 text-gray-900">Nuestra Misión</h3>
+          <p class="text-lg text-gray-700">
+            Facilitar el acceso a servicios de salud de calidad, conectando a pacientes con profesionales médicos a través de una plataforma tecnológica innovadora, segura y fácil de usar, promoviendo el bienestar y la prevención.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="bg-blue-700 text-white py-16 md:py-20">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        Listo para cuidar tu salud?
+      </h2>
+      <p class="text-xl mb-10 max-w-2xl mx-auto">
+        Únete a CitasMédicas hoy mismo y experimenta la forma más sencilla de gestionar tus citas médicas.
+      </p>
+      <a routerLink="/register" class="bg-white text-blue-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-200 transition duration-300 ease-in-out transform hover:scale-105">
+        Regístrate Gratis
+      </a>
+    </div>
+  </section>
+  <section class="bg-white py-16 px-4 sm:px-6 lg:px-8 mt-12 mb-12">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Contáctanos</h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-gray-50 p-8 rounded-xl shadow-md border border-gray-200">
+          <h3 class="text-2xl font-bold mb-6 text-gray-900">Información de Contacto</h3>
+
+          <div class="mb-6">
+            <h4 class="font-semibold text-lg text-gray-700 mb-1">Dirección:</h4>
+            <p class="text-gray-600">Av. Principal 123, Sullana, Piura</p>
+            <p class="text-gray-600">Urbanización El Centro</p>
+          </div>
+
+          <div class="mb-6">
+            <h4 class="font-semibold text-lg text-gray-700 mb-1">Ciudad:</h4>
+            <p class="text-gray-600">Sullana</p>
+            <p class="text-gray-600">Piura</p>
+          </div>
+
+          <div class="mb-6">
+            <h4 class="font-semibold text-lg text-gray-700 mb-1">Horario de Atención:</h4>
+            <p class="text-gray-600">Lunes a Viernes: 8:00 AM a 8:00 PM</p>
+            <p class="text-gray-600">Sábados: 8:00 AM a 1:00 PM</p>
+            <p class="text-red-500 font-medium">Emergencias: Lunes a Domingo, incluyendo feriados (24 horas)</p>
+          </div>
+          <div class="mb-0">
+            <h4 class="font-semibold text-lg text-gray-700 mb-1">Teléfono:</h4>
+            <p class="text-gray-600">+51 987 654 321</p>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-xl shadow-md border border-gray-200 flex items-center justify-center">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.2307842345097!2d-80.17415128522718!3d-4.896683596205842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9027f311f9d6c703%3A0x6e9a0f5e3e2c3b2c!2sPlaza%20de%20Armas%20de%20Sullana!5e0!3m2!1ses-419!2spe!4v1678822450000!5m2!1ses-419!2spe"
+            width="100%"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="rounded-lg"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="bg-gray-800 text-gray-300 py-4 mt-auto">
+    <div class="container mx-auto px-4 text-center text-xs opacity-80">
+      <p>&copy; {{ currentYear }} Citas Médicas. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
 </div>
