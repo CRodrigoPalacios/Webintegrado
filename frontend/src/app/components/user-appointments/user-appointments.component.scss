@@ -1,0 +1,347 @@
+// Variables
+$primary-color: #2563eb;
+$primary-hover: #1d4ed8;
+$secondary-color: #64748b;
+$success-color: #059669;
+$warning-color: #d97706;
+$error-color: #dc2626;
+$info-color: #0284c7;
+$gray-50: #f8fafc;
+$gray-100: #f1f5f9;
+$gray-200: #e2e8f0;
+$gray-300: #cbd5e1;
+$gray-400: #94a3b8;
+$gray-500: #64748b;
+$gray-600: #475569;
+$gray-700: #334155;
+$gray-800: #1e293b;
+$white: #ffffff;
+
+// Mixins
+@mixin card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+@mixin button-transition {
+  transition: all 0.2s ease-in-out;
+}
+
+.user-appointments {
+  min-height: 100vh;
+  background-color: $gray-50;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: $gray-800;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: $secondary-color;
+      margin: 0;
+    }
+  }
+
+  .appointments-section {
+    margin-bottom: 3rem;
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid $gray-200;
+
+      .section-title {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: $gray-800;
+        margin: 0;
+      }
+
+      .appointments-count {
+        background: $primary-color;
+        color: $white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .no-appointments {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .alert {
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+
+    .icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      opacity: 0.8;
+    }
+
+    &.alert-info {
+      background-color: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+    }
+
+    &.alert-error {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+  }
+
+  .appointments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .appointment-card {
+    background: $white;
+    border-radius: 12px;
+    overflow: hidden;
+    @include card-shadow;
+    @include button-transition;
+    border: 1px solid $gray-200;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-header {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+
+      .doctor-info {
+        flex: 1;
+
+        .doctor-name {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: $gray-800;
+          margin: 0 0 0.25rem 0;
+        }
+
+        .hospital-name {
+          font-size: 0.9rem;
+          color: $gray-600;
+          display: block;
+        }
+      }
+
+      .status-badge {
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        white-space: nowrap;
+
+        &.pending {
+          background: #fef3c7;
+          color: #92400e;
+        }
+
+        &.confirmed {
+          background: #d1fae5;
+          color: #065f46;
+        }
+
+        &.completed {
+          background: #e0e7ff;
+          color: #3730a3;
+        }
+      }
+    }
+
+    &.upcoming .card-header {
+      background: linear-gradient(135deg, $primary-color, $primary-hover);
+      color: $white;
+
+      .doctor-name {
+        color: $white;
+      }
+
+      .hospital-name {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .status-badge {
+        background: rgba(255, 255, 255, 0.2);
+        color: $white;
+      }
+    }
+
+    &.completed .card-header {
+      background: $gray-100;
+
+      .status-badge.completed {
+        background: $gray-200;
+        color: $gray-700;
+      }
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .appointment-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .icon {
+        font-size: 1.1rem;
+        width: 1.5rem;
+        text-align: center;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+      }
+
+      .detail-label {
+        font-size: 0.85rem;
+        color: $gray-500;
+        font-weight: 500;
+      }
+
+      .detail-value {
+        font-size: 0.95rem;
+        color: $gray-800;
+        font-weight: 600;
+      }
+    }
+
+    .card-footer {
+      padding: 1rem 1.5rem;
+      background: $gray-50;
+      border-top: 1px solid $gray-200;
+
+      .action-btn {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        @include button-transition;
+
+        &.primary {
+          background: $warning-color;
+          color: $white;
+
+          &:hover:not(:disabled) {
+            background: darken($warning-color, 10%);
+          }
+
+          &.confirmed {
+            background: $success-color;
+            cursor: default;
+
+            &:hover {
+              background: $success-color;
+            }
+          }
+
+          &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+
+  .error-container {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  // Responsive
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+
+    .header .title {
+      font-size: 2rem;
+    }
+
+    .appointments-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .appointment-card {
+      .card-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+
+        .doctor-info {
+          text-align: center;
+        }
+      }
+
+      .section-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+    }
+
+    .alert {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+}

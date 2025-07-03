@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-appointment-reservation',
   templateUrl: './appointment-reservation.component.html',
-  styleUrls: []
+  styleUrls: ['appointment-reservation.component.scss']
 })
 export class AppointmentReservationComponent implements OnInit {
   appointmentSlots: any[] = [];
