@@ -23,6 +23,7 @@ import { CompletedCancelledAppointmentsComponent } from './components/completed-
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthInterceptor } from './helpers/http.interceptor';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { DoctorRegistrationComponent } from './components/doctor-registration/doctor-registration.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
     PendingAppointmentsDoctorComponent,
     CompletedCancelledAppointmentsComponent,
     NavbarComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    DoctorRegistrationComponent
   ],
   imports: [
     BrowserModule,

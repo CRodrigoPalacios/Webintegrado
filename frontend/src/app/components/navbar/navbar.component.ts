@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
   private getShortName(fullName: string): string {
     const parts = fullName.trim().split(/\s+/);
     const firstName = parts[0] || '';
- 
+
     const firstSurname = parts.length > 1 ? parts[parts.length - 2] : '';
     return `${firstName}${firstSurname ? ' ' + firstSurname : ''}`;
   }

@@ -1,0 +1,286 @@
+<div class="doctor-registration-container">
+  <div class="main-card">
+    <div class="header">
+      <h1 class="title">👨‍⚕️ Registrar Doctor</h1>
+      <p class="subtitle">Agregue un nuevo doctor al sistema médico</p>
+    </div>
+
+    <!-- Mensajes de estado -->
+    <div *ngIf="message" class="message" [ngClass]="{'message-error': isError, 'message-success': !isError}">
+      <div class="message-content">
+        <span class="message-icon">{{ isError ? '❌' : '✅' }}</span>
+        <span class="message-text">{{ message }}</span>
+      </div>
+    </div>
+
+    <!-- Formulario de registro -->
+    <div class="form-section">
+      <div class="form-header">
+        <h2 class="form-title">Registro de Nuevo Doctor</h2>
+        <div class="form-divider"></div>
+      </div>
+
+      <form #doctorForm="ngForm" (ngSubmit)="onSubmit()" class="doctor-form">
+        <!-- DNI y Email -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="dni" class="form-label">
+              <span class="label-text">DNI</span>
+              <span class="label-required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="dni"
+                name="dni"
+                [(ngModel)]="form.dni"
+                (input)="onDniChange()"
+                maxlength="8"
+                minlength="8"
+                required
+                class="form-input"
+                placeholder="Ingrese DNI de 8 dígitos"
+              />
+              <div *ngIf="isLoadingDni" class="loading-indicator">
+                <span class="loading-spinner"></span>
+                <span class="loading-text">Validando DNI...</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">
+              <span class="label-text">Email</span>
+              <span class="label-required">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              [(ngModel)]="form.email"
+              required
+              class="form-input"
+              placeholder="doctor@hospital.com"
+            />
+          </div>
+        </div>
+
+        <!-- Nombres (editables con auto-completado) -->
+        <div class="form-row-triple">
+          <div class="form-group">
+            <label for="firstName" class="form-label">
+              <span class="label-text">Nombres</span>
+              <span class="auto-complete-badge" *ngIf="isDniValidated">Auto</span>
+              <span class="manual-badge" *ngIf="!isDniValidated">Manual</span>
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              [(ngModel)]="form.firstName"
+              (input)="updateFullName()"
+              class="form-input"
+              [class.form-input-auto]="isDniValidated"
+              placeholder="Ingrese nombres"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="lastNamePaternal" class="form-label">
+              <span class="label-text">Apellido Paterno</span>
+              <span class="auto-complete-badge" *ngIf="isDniValidated">Auto</span>
+              <span class="manual-badge" *ngIf="!isDniValidated">Manual</span>
+            </label>
+            <input
+              type="text"
+              id="lastNamePaternal"
+              name="lastNamePaternal"
+              [(ngModel)]="form.lastNamePaternal"
+              (input)="updateFullName()"
+              class="form-input"
+              [class.form-input-auto]="isDniValidated"
+              placeholder="Ingrese apellido paterno"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="lastNameMaternal" class="form-label">
+              <span class="label-text">Apellido Maternal</span>
+              <span class="auto-complete-badge" *ngIf="isDniValidated">Auto</span>
+              <span class="manual-badge" *ngIf="!isDniValidated">Manual</span>
+            </label>
+            <input
+              type="text"
+              id="lastNameMaternal"
+              name="lastNameMaternal"
+              [(ngModel)]="form.lastNameMaternal"
+              (input)="updateFullName()"
+              class="form-input"
+              [class.form-input-auto]="isDniValidated"
+              placeholder="Ingrese apellido materno"
+            />
+          </div>
+        </div>
+
+        <!-- Nombre Completo -->
+        <div class="form-group">
+          <label for="fullName" class="form-label">
+            <span class="label-text">Nombre Completo</span>
+            <span class="auto-complete-badge" *ngIf="isDniValidated">Auto</span>
+            <span class="manual-badge" *ngIf="!isDniValidated">Manual</span>
+          </label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            [(ngModel)]="form.fullName"
+            class="form-input"
+            [class.form-input-auto]="isDniValidated"
+            placeholder="Se generará automáticamente o ingrese manualmente"
+            required
+          />
+        </div>
+
+        <!-- Botón para validar DNI manualmente -->
+        <div class="form-group" *ngIf="form.dni && form.dni.length === 8 && !isDniValidated">
+          <button
+            type="button"
+            (click)="validateDni()"
+            class="btn btn-outline"
+            [disabled]="isLoadingDni"
+          >
+            <span class="btn-icon">🔍</span>
+            {{ isLoadingDni ? 'Validando...' : 'Validar DNI' }}
+          </button>
+        </div>
+
+        <!-- Contraseña y Especialización -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password" class="form-label">
+              <span class="label-text">Contraseña</span>
+              <span class="label-required">*</span>
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              [(ngModel)]="form.password"
+              required
+              minlength="6"
+              class="form-input"
+              placeholder="Mínimo 6 caracteres"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="specialization" class="form-label">
+              <span class="label-text">Especialización</span>
+              <span class="label-required">*</span>
+            </label>
+            <select
+              id="specialization"
+              name="specialization"
+              [(ngModel)]="form.specialization"
+              required
+              class="form-select"
+            >
+              <option value="">Seleccione una especialización</option>
+              <option *ngFor="let spec of specializations" [value]="spec">
+                {{ spec }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="form-actions">
+          <button
+            type="button"
+            (click)="resetForm()"
+            class="btn btn-secondary"
+          >
+            <span class="btn-icon">🔄</span>
+            Limpiar
+          </button>
+
+          <button
+            type="submit"
+            [disabled]="!doctorForm.valid"
+            class="btn btn-primary"
+          >
+            <span class="btn-icon">👨‍⚕️</span>
+            Registrar Doctor
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Lista de doctores registrados -->
+    <div class="doctors-section">
+      <div class="section-header">
+        <h2 class="section-title">👩‍⚕️ Doctores Registrados</h2>
+        <div class="doctors-count">
+          <span class="count-number">{{ doctors.length }}</span>
+          <span class="count-label">doctores</span>
+        </div>
+      </div>
+
+      <div *ngIf="doctors.length === 0" class="empty-state">
+        <div class="empty-icon">🏥</div>
+        <h3 class="empty-title">No hay doctores registrados</h3>
+        <p class="empty-description">Los doctores que registres aparecerán aquí</p>
+      </div>
+
+      <div *ngIf="doctors.length > 0" class="doctors-grid">
+        <div
+          *ngFor="let doctor of doctors; let i = index"
+          class="doctor-card"
+          [class.doctor-card-highlight]="i < 3"
+        >
+          <div class="doctor-header">
+            <div class="doctor-avatar">
+              <span class="avatar-icon">👨‍⚕️</span>
+            </div>
+            <div class="doctor-info">
+              <h3 class="doctor-name">{{ doctor.fullName }}</h3>
+              <p class="doctor-specialization">{{ doctor.specialization }}</p>
+            </div>
+            <div class="doctor-status">
+              <span class="status-badge status-active">Activo</span>
+            </div>
+          </div>
+
+          <div class="doctor-details">
+            <div class="detail-item">
+              <span class="detail-label">DNI:</span>
+              <span class="detail-value">{{ doctor.dni }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Email:</span>
+              <span class="detail-value">{{ doctor.email }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Registro:</span>
+              <span class="detail-value">{{ doctor.createdAt | date:'short' || 'Reciente' }}</span>
+            </div>
+          </div>
+
+          <div class="doctor-actions">
+            <button class="action-btn action-btn-view" title="Ver detalles">
+              <span class="action-icon">👁️</span>
+            </button>
+            <button class="action-btn action-btn-edit" title="Editar">
+              <span class="action-icon">✏️</span>
+            </button>
+            <button class="action-btn action-btn-delete" title="Desactivar">
+              <span class="action-icon">🗑️</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

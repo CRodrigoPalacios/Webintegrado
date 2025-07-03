@@ -1,9 +1,6 @@
 package com.example.medicalappointments.controller;
 
-import com.example.medicalappointments.dto.JwtResponse;
-import com.example.medicalappointments.dto.LoginRequest;
-import com.example.medicalappointments.dto.MessageResponse;
-import com.example.medicalappointments.dto.SignupRequest;
+import com.example.medicalappointments.dto.*;
 import lombok.Getter;
 import lombok.Setter;
 import com.example.medicalappointments.model.ERole;
@@ -21,6 +18,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -138,4 +136,66 @@ public class AuthController {
             return ResponseEntity.status(500).body(new MessageResponse("User registration failed: " + e.getMessage()));
         }
     }
+
+
+
+    @PostMapping("/register-doctor")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> registerDoctor(@Valid @RequestBody DoctorRegistrationRequest doctorRequest) {
+        try {
+            // Verificar si el DNI ya existe
+            if (userRepository.existsByDni(doctorRequest.getDni())) {
+                return ResponseEntity.badRequest()
+                        .body(new MessageResponse("Error: DNI is already taken!"));
+            }
+
+            // Verificar si el email ya existe
+            if (userRepository.existsByEmail(doctorRequest.getEmail())) {
+                return ResponseEntity.badRequest()
+                        .body(new MessageResponse("Error: Email is already in use!"));
+            }
+
+            // Crear nuevo usuario
+            User doctor = new User(
+                    doctorRequest.getEmail(),
+                    encoder.encode(doctorRequest.getPassword()),
+                    doctorRequest.getDni(),
+                    doctorRequest.getFullName()
+            );
+
+            // Agregar especialización
+            doctor.setSpecialization(doctorRequest.getSpecialization());
+
+            // Asignar rol de doctor
+            Role doctorRole = roleRepository.findByName(ERole.ROLE_MEDICO)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+
+            Set<Role> roles = new HashSet<>();
+            roles.add(doctorRole);
+            doctor.setRoles(roles);
+
+            // Guardar en base de datos
+            userRepository.save(doctor);
+
+            return ResponseEntity.ok(new MessageResponse("Doctor registered successfully!"));
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(new MessageResponse("Error registering doctor: " + e.getMessage()));
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
