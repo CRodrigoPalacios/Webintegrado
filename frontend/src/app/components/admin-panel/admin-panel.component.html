@@ -1,33 +1,63 @@
-<div class="flex h-screen">
-  <aside class="w-64 bg-gray-800 text-white p-4">
-    <h2 class="text-xl font-bold mb-6">Panel Administrativo</h2>
-    <nav>
-      <ul>
-        <li *ngIf="isAdmin || isMedico" class="mb-2">
-          <a routerLink="/admin-panel/dashboard" class="block py-2 px-3 rounded hover:bg-gray-700">Dashboard</a>
+<div class="flex h-screen bg-gray-100">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-lg flex flex-col p-6">
+    <h2 class="text-2xl font-bold mb-8 text-center tracking-wide border-b pb-4 border-gray-700">
+      🛠️ Admin Panel
+    </h2>
+    <nav class="flex-1">
+      <ul class="space-y-3 text-sm font-medium">
+        <li *ngIf="isAdmin || isMedico">
+          <a routerLink="/admin-panel/dashboard" routerLinkActive="bg-gray-700"
+             class="block py-2 px-4 rounded hover:bg-gray-700 transition">
+            📊 Dashboard
+          </a>
         </li>
-        <li *ngIf="isMedico" class="mb-2">
-          <a routerLink="/admin-panel/crear-citas" class="block py-2 px-3 rounded hover:bg-gray-700">Crear Citas</a>
+        <li *ngIf="isMedico">
+          <a routerLink="/admin-panel/crear-citas" routerLinkActive="bg-gray-700"
+             class="block py-2 px-4 rounded hover:bg-gray-700 transition">
+            🗓️ Crear Citas
+          </a>
         </li>
-        <li *ngIf="isMedico" class="mb-2">
-          <a routerLink="/admin-panel/citas-pendientes" class="block py-2 px-3 rounded hover:bg-gray-700">Ver Citas Pendientes</a>
+        <li *ngIf="isMedico">
+          <a routerLink="/admin-panel/citas-pendientes" routerLinkActive="bg-gray-700"
+             class="block py-2 px-4 rounded hover:bg-gray-700 transition">
+            ⏳ Ver Citas Pendientes
+          </a>
         </li>
-        <li *ngIf="isAdmin" class="mb-2">
-          <a routerLink="/admin-panel/agregar-hospitales" class="block py-2 px-3 rounded hover:bg-gray-700">Agregar Hospitales</a>
+        <li *ngIf="isAdmin">
+          <a routerLink="/admin-panel/agregar-hospitales" routerLinkActive="bg-gray-700"
+             class="block py-2 px-4 rounded hover:bg-gray-700 transition">
+            🏥 Agregar Hospitales
+          </a>
         </li>
-        <li *ngIf="isAdmin" class="mb-2">
-          <a routerLink="/admin-panel/citas-pendientes-doctor" class="block py-2 px-3 rounded hover:bg-gray-700">Ver Citas Pendientes por Doctor</a>
+        <li *ngIf="isAdmin">
+          <a routerLink="/admin-panel/citas-pendientes-doctor" routerLinkActive="bg-gray-700"
+             class="block py-2 px-4 rounded hover:bg-gray-700 transition">
+            👨‍⚕️ Citas Pendientes por Doctor
+          </a>
         </li>
-        <li *ngIf="isAdmin" class="mb-2">
-          <a routerLink="/admin-panel/citas-completadas" class="block py-2 px-3 rounded hover:bg-gray-700">Ver Citas Completadas y Canceladas</a>
+        <li *ngIf="isAdmin">
+          <a routerLink="/admin-panel/citas-completadas" routerLinkActive="bg-gray-700"
+             class="block py-2 px-4 rounded hover:bg-gray-700 transition">
+            ✅ Citas Completadas / Canceladas
+          </a>
         </li>
-        <li *ngIf="isAdmin" class="mb-2">
-          <a routerLink="/admin-panel/modificar-usuarios" class="block py-2 px-3 rounded hover:bg-gray-700">Modificación de Usuario</a>
+        <li *ngIf="isAdmin">
+          <a routerLink="/admin-panel/modificar-usuarios" routerLinkActive="bg-gray-700"
+             class="block py-2 px-4 rounded hover:bg-gray-700 transition">
+            👤 Modificar Usuario
+          </a>
         </li>
       </ul>
     </nav>
+    <ng-container *ngIf="true">
+  <span>© {{ '2025-01-01' | date: 'yyyy' }} Sistema Médico</span>
+</ng-container>
   </aside>
-  <main class="flex-1 p-6 overflow-auto">
+
+  <!-- Main content -->
+  <main class="flex-1 p-6 overflow-auto bg-gray-50">
     <router-outlet></router-outlet>
   </main>
 </div>
+
