@@ -8,9 +8,10 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
-  showAdminBoard: boolean = false; // Nueva bandera para el admin
-  username?: string; // Para mostrar el nombre de usuario
-  roles: string[] = []; // Para almacenar los roles del usuario
+  showAdminBoard: boolean = false;
+  showDoctorBoard: boolean = false;
+  username?: string;
+  roles: string[] = [];
 
   constructor(public tokenStorage: TokenStorageService, private router: Router) { }
 
@@ -18,11 +19,12 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorage.getToken();
 
     if (this.isLoggedIn) {
-      const user = this.tokenStorage.getUser(); // Asume que getUser() devuelve el objeto de usuario
-      if (user && user.roles) { // Asegúrate de que 'user' y 'user.roles' existan
+      const user = this.tokenStorage.getUser();
+      if (user && user.roles) {
         this.roles = user.roles;
-        this.showAdminBoard = this.roles.includes('ROLE_ADMIN'); // Verifica si tiene el rol de ADMIN
-        // Si quieres mostrar un nombre, asume que 'user' tiene una propiedad 'username' o 'fullName'
+        this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+        this.showDoctorBoard = this.roles.includes('ROLE_MEDICO');
+
         const fullName = user.fullName || user.username || user.email;
         this.username = this.getShortName(fullName);
       }
@@ -32,11 +34,13 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.tokenStorage.signOut();
     this.isLoggedIn = false;
-    this.showAdminBoard = false; // Restablecer la bandera de admin al cerrar sesión
-    this.username = undefined; // Limpiar el nombre de usuario
-    this.roles = []; // Limpiar los roles
+    this.showAdminBoard = false;
+    this.showDoctorBoard = false;
+    this.username = undefined;
+    this.roles = [];
     this.router.navigate(['/login']);
   }
+
   private getShortName(fullName: string): string {
     const parts = fullName.trim().split(/\s+/);
     const firstName = parts[0] || '';
