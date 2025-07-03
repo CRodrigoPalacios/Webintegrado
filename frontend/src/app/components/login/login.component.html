@@ -1,35 +1,77 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
-    <h3 class="text-2xl font-bold text-center">Login</h3>
-    <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-      <div class="mt-4">
-        <div>
-          <label for="dni" class="block">DNI</label>
-          <input type="text" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                 name="dni" [(ngModel)]="form.dni" required #dni="ngModel" />
-          <div class="text-red-600" *ngIf="dni.errors && f.submitted">
-            <div *ngIf="dni.errors['required']">DNI is required</div>
+<div class="flex items-center justify-center min-h-screen bg-gray-50 font-sans">
+  <div class="flex flex-col md:flex-row bg-white shadow-xl rounded-lg overflow-hidden max-w-4xl w-full">
+
+    <div class="md:w-1/2 p-8 flex items-center justify-center bg-purple-50 flex-shrink-0">
+      <img
+        src="assets/doctor.png" alt="Ilustración de equipo médico"
+        class="max-w max-h object-cover"
+      >
+    </div>
+
+    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+
+      <div class="flex flex-col items-center justify-center mb-8">
+        <img src="assets/medical-logo.png" alt="Citas Médicas Logo" class="h-16 w-16 mb-2" *ngIf="false">
+        <h2 class="text-4xl font-extrabold text-gray-800">Citas Médicas</h2>
+        <p class="text-lg text-gray-600 mt-2">Bienvenido de nuevo</p>
+      </div>
+
+      <h3 class="text-3xl font-bold text-center text-gray-700 mb-8">Iniciar Sesión</h3>
+
+      <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="space-y-6">
+
+          <div>
+            <label for="dni" class="sr-only">DNI</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+              </div>
+              <input type="text" id="dni" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800 placeholder-gray-500"
+                     placeholder="DNI" name="dni" [(ngModel)]="form.dni" required #dni="ngModel" />
+            </div>
+            <div class="text-red-600 text-sm mt-1" *ngIf="dni.errors && f.submitted">
+              <div *ngIf="dni.errors['required']">El DNI es requerido.</div>
+            </div>
+          </div>
+
+          <div>
+            <label for="password" class="sr-only">Contraseña</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v3h8z"></path></svg>
+              </div>
+              <input type="password" id="password" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800 placeholder-gray-500"
+                     placeholder="Contraseña" name="password" [(ngModel)]="form.password" required #password="ngModel" />
+            </div>
+            <div class="text-red-600 text-sm mt-1" *ngIf="password.errors && f.submitted">
+              <div *ngIf="password.errors['required']">La contraseña es requerida.</div>
+            </div>
+          </div>
+
+          <div class="flex items-baseline justify-between mt-6">
+            <button class="w-full px-6 py-3 text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition duration-200 ease-in-out transform hover:scale-105 font-semibold text-lg shadow-md">Iniciar Sesión</button>
+          </div>
+
+          <div class="text-center text-gray-600 text-sm mt-4">
+            ¿No tienes una cuenta? <a routerLink="/register" class="text-blue-600 hover:underline font-medium">Regístrate aquí</a>
+          </div>
+
+          <div class="text-red-600 text-sm text-center mt-4" *ngIf="f.submitted && isLoginFailed">
+            Login fallido: {{ errorMessage }}
           </div>
         </div>
-        <div class="mt-4">
-          <label for="password" class="block">Password</label>
-          <input type="password" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                 name="password" [(ngModel)]="form.password" required #password="ngModel" />
-          <div class="text-red-600" *ngIf="password.errors && f.submitted">
-            <div *ngIf="password.errors['required']">Password is required</div>
-          </div>
-        </div>
-        <div class="flex items-baseline justify-between">
-          <button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Login</button>
-        </div>
-        <div class="text-red-600" *ngIf="f.submitted && isLoginFailed">
-          Login failed: {{ errorMessage }}
+      </form>
+
+      <div *ngIf="isLoggedIn" class="text-center mt-8">
+        <p class="text-green-600 text-xl font-semibold mb-4">¡Sesión iniciada con éxito!</p>
+        <p class="text-gray-700" *ngIf="tokenStorage && tokenStorage.getUser()">Bienvenido, {{ tokenStorage.getUser().fullName }}.</p>
+
+        <div class="flex flex-col items-center justify-center mt-6 space-y-3">
+          <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4 animate-spin-slow"></div>
+          <p class="text-blue-600 text-lg font-medium">Redirigiendo al inicio en unos segundos...</p>
         </div>
       </div>
-    </form>
-
-    <div *ngIf="isLoggedIn" class="text-center">
-      Logged in as {{ tokenStorage.getUser().fullName }}.
     </div>
   </div>
 </div>

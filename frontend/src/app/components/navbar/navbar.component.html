@@ -1,10 +1,25 @@
-<nav class="bg-gray-800 p-4 text-white flex justify-between items-center">
-  <div class="text-lg font-bold">Medical Appointments</div>
-  <ul class="flex space-x-4">
-    <li><a routerLink="/home" routerLinkActive="underline" class="hover:underline">Home</a></li>
-    <li><a routerLink="/login" routerLinkActive="underline" class="hover:underline">Login</a></li>
-    <li><a routerLink="/register" routerLinkActive="underline" class="hover:underline">Register</a></li>
-    <li><a routerLink="/admin-panel" routerLinkActive="underline" class="hover:underline">Admin Panel</a></li>
-    <li><button (click)="logout()" class="hover:underline bg-red-600 px-2 py-1 rounded">Logout</button></li>
+<nav class="bg-gray-800 text-white p-4 flex justify-between items-center">
+  <div class="text-xl font-bold">Medical Appointments</div>
+  <ul class="flex space-x-4 items-center">
+    <li><a routerLink="/home" class="hover:text-blue-400">Home</a></li>
+
+    <ng-container *ngIf="!isLoggedIn">
+      <li><a routerLink="/login" class="hover:text-blue-400">Login</a></li>
+      <li><a routerLink="/register" class="hover:text-blue-400">Register</a></li>
+    </ng-container>
+
+    <ng-container *ngIf="isLoggedIn">
+      <li *ngIf="tokenStorage.getUser()?.fullName">
+        <span class="text-white font-semibold">
+          Bienvenido, {{ tokenStorage.getUser().fullName }}
+        </span>
+      </li>
+
+      <li>
+        <button (click)="logout()" class="bg-red-600 px-3 py-1 rounded hover:bg-red-700">Logout</button>
+      </li>
+    </ng-container>
+
+    <li><a routerLink="/admin-panel" class="hover:text-blue-400">Admin Panel</a></li>
   </ul>
 </nav>

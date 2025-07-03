@@ -5,10 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
+  currentYear: number;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
+    this.currentYear = new Date().getFullYear();
   }
 
+  ngOnInit(): void {
+  }
 }
