@@ -1,69 +1,132 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="px-8 py-6 mt-4 text-left bg-white shadow-lg">
-    <h3 class="text-2xl font-bold text-center">Register</h3>
-    <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-      <div class="mt-4">
-        <div class="mt-4">
-          <label for="dni" class="block">DNI</label>
-          <input type="text" maxlength="8" minlength="8" name="dni" [(ngModel)]="form.dni" required
-                 class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" />
-          <button type="button" (click)="validateDni()" class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700">
-            Validar DNI
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 p-4 font-sans text-gray-800 antialiased">
+  <div class="w-full max-w-xl px-10 py-12 bg-white rounded-2xl shadow-xl transform transition-all duration-500 ease-in-out hover:shadow-2xl">
+    <h2 class="text-5xl font-extrabold text-center text-blue-700 mb-10 tracking-tight leading-tight">
+      ¡Crea tu Cuenta!
+    </h2>
+    <p class="text-center text-gray-600 mb-8">Únete a nuestra plataforma y gestiona tus citas médicas fácilmente.</p>
+
+
+    <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="space-y-6">
+      <div>
+        <label for="dni" class="block text-gray-700 text-sm font-semibold mb-2">
+          DNI <span class="text-red-500">*</span>
+        </label>
+        <div class="flex items-center">
+          <input type="text" maxlength="8" minlength="8" name="dni" [(ngModel)]="form.dni" required #dni="ngModel"
+                 class="flex-1 px-5 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-3 focus:ring-blue-400 focus:border-blue-500 transition duration-300 shadow-sm
+                        {{ dni.invalid && (dni.dirty || dni.touched || f.submitted) ? 'border-red-500 ring-red-200' : '' }}"
+                 placeholder="Ingresa tu DNI (8 dígitos)" />
+          <button type="button" (click)="validateDni()"
+                  class="px-7 py-3 bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold rounded-r-lg hover:from-blue-600 hover:to-blue-700 transition duration-300 transform hover:scale-105 active:scale-95 shadow-md">
+            Validar
           </button>
         </div>
-        <div class="mt-4">
-          <label for="firstName" class="block">Nombres</label>
+        <div class="text-red-500 text-xs mt-1" *ngIf="dni.errors && (dni.dirty || dni.touched || f.submitted)">
+          <div *ngIf="dni.errors['required']">El DNI es requerido.</div>
+          <div *ngIf="dni.errors['minlength'] || dni.errors['maxlength']">El DNI debe tener 8 dígitos.</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="firstName" class="block text-gray-700 text-sm font-semibold mb-2">Nombres</label>
           <input type="text" name="firstName" [(ngModel)]="form.firstName" readonly
-                 class="w-full px-4 py-2 mt-2 border rounded-md bg-gray-100" />
+                 class="w-full px-5 py-3 border border-gray-200 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed shadow-sm"
+                 placeholder="Se llenará automáticamente" />
         </div>
-        <div class="mt-4">
-          <label for="lastNamePaternal" class="block">Apellido Paterno</label>
+        <div>
+          <label for="lastNamePaternal" class="block text-gray-700 text-sm font-semibold mb-2">Apellido Paterno</label>
           <input type="text" name="lastNamePaternal" [(ngModel)]="form.lastNamePaternal" readonly
-                 class="w-full px-4 py-2 mt-2 border rounded-md bg-gray-100" />
+                 class="w-full px-5 py-3 border border-gray-200 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed shadow-sm"
+                 placeholder="Se llenará automáticamente" />
         </div>
-        <div class="mt-4">
-          <label for="lastNameMaternal" class="block">Apellido Materno</label>
+        <div>
+          <label for="lastNameMaternal" class="block text-gray-700 text-sm font-semibold mb-2">Apellido Materno</label>
           <input type="text" name="lastNameMaternal" [(ngModel)]="form.lastNameMaternal" readonly
-                 class="w-full px-4 py-2 mt-2 border rounded-md bg-gray-100" />
+                 class="w-full px-5 py-3 border border-gray-200 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed shadow-sm"
+                 placeholder="Se llenará automáticamente" />
         </div>
-        <div class="mt-4">
-          <label for="email" class="block">Email</label>
-          <input type="email" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                 name="email" [(ngModel)]="form.email" required email #email="ngModel" />
-          <div class="text-red-600" *ngIf="email.errors && f.submitted">
-            <div *ngIf="email.errors['required']">Email is required</div>
-            <div *ngIf="email.errors['email']">Email must be a valid email address</div>
+      </div>
+
+      <div>
+        <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">
+          Email <span class="text-red-500">*</span>
+        </label>
+        <input type="email"
+               class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-blue-400 focus:border-blue-500 transition duration-300 shadow-sm
+                      {{ email.invalid && (email.dirty || email.touched || f.submitted) ? 'border-red-500 ring-red-200' : '' }}"
+               name="email" [(ngModel)]="form.email" required email #email="ngModel"
+               placeholder="ejemplo@correo.com" />
+        <div class="text-red-500 text-xs mt-1" *ngIf="email.errors && (email.dirty || email.touched || f.submitted)">
+          <div *ngIf="email.errors['required']">El email es requerido.</div>
+          <div *ngIf="email.errors['email']">Por favor, introduce una dirección de email válida.</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">
+            Contraseña <span class="text-red-500">*</span>
+          </label>
+          <input type="password"
+                 class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-blue-400 focus:border-blue-500 transition duration-300 shadow-sm
+                        {{ password.invalid && (password.dirty || password.touched || f.submitted) ? 'border-red-500 ring-red-200' : '' }}"
+                 name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel"
+                 placeholder="Mínimo 6 caracteres" />
+          <div class="text-red-500 text-xs mt-1" *ngIf="password.errors && (password.dirty || password.touched || f.submitted)">
+            <div *ngIf="password.errors['required']">La contraseña es requerida.</div>
+            <div *ngIf="password.errors['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
           </div>
         </div>
-        <div class="mt-4">
-          <label for="password" class="block">Password</label>
-          <input type="password" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                 name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
-          <div class="text-red-600" *ngIf="password.errors && f.submitted">
-            <div *ngIf="password.errors['required']">Password is required</div>
-            <div *ngIf="password.errors['minlength']">Password must be at least 6 characters</div>
+
+        <div>
+          <label for="confirmPassword" class="block text-gray-700 text-sm font-semibold mb-2">
+            Confirmar Contraseña <span class="text-red-500">*</span>
+          </label>
+          <input type="password"
+                 class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-blue-400 focus:border-blue-500 transition duration-300 shadow-sm
+                        {{ confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched || f.submitted) ? 'border-red-500 ring-red-200' : '' }}"
+                 name="confirmPassword" [(ngModel)]="form.confirmPassword" required minlength="6" #confirmPassword="ngModel"
+                 placeholder="Repite tu contraseña" />
+          <div class="text-red-500 text-xs mt-1" *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched || f.submitted)">
+            <div *ngIf="confirmPassword.errors['required']">Confirmar contraseña es requerido.</div>
+            <div *ngIf="confirmPassword.errors['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
           </div>
         </div>
-        <div class="mt-4">
-          <label for="confirmPassword" class="block">Confirm Password</label>
-          <input type="password" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                 name="confirmPassword" [(ngModel)]="form.confirmPassword" required minlength="6" #confirmPassword="ngModel" />
-          <div class="text-red-600" *ngIf="confirmPassword.errors && f.submitted">
-            <div *ngIf="confirmPassword.errors['required']">Confirm Password is required</div>
-            <div *ngIf="confirmPassword.errors['minlength']">Confirm Password must be at least 6 characters</div>
-          </div>
-        </div>
-        <div class="flex items-baseline justify-between">
-          <button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Register</button>
-        </div>
-        <div class="text-red-600" *ngIf="f.submitted && isSignUpFailed">
-          Signup failed: {{ errorMessage }}
-        </div>
+      </div>
+
+      <div class="flex justify-center mt-10">
+        <button type="submit"
+                class="w-full max-w-xs px-10 py-4 text-xl font-bold text-white bg-gradient-to-br from-blue-600 to-blue-700 rounded-full shadow-xl
+                       hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75
+                       transition duration-300 transform hover:-translate-y-1 active:translate-y-0 active:scale-98">
+          Registrarme
+        </button>
+      </div>
+
+      <div class="text-red-600 text-center mt-6 text-base font-semibold" *ngIf="f.submitted && isSignUpFailed">
+        <p class="flex items-center justify-center">
+          <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+          </svg>
+          Error al registrar: {{ errorMessage }}
+        </p>
       </div>
     </form>
 
-    <div class="text-green-600" *ngIf="isSuccessful">
-      Your registration is successful!
+    <div class="text-center text-green-700 p-8 rounded-xl bg-green-50 shadow-inner mt-4" *ngIf="isSuccessful">
+      <p class="text-4xl font-bold mb-4 text-green-600">¡Registro Exitoso!</p>
+      <p class="text-lg text-gray-700 mb-6">Tu cuenta ha sido creada satisfactoriamente. Ahora puedes iniciar sesión.</p>
+      <p class="text-base text-gray-600">Serás redirigido al login en <span class="font-bold text-blue-600 text-xl">{{ countdown }}</span> segundos.</p>
+      <div class="mt-6">
+        <a routerLink="/login" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-lg
+                                     hover:bg-blue-700 transition duration-300 transform hover:scale-105 active:scale-95">
+          <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414L8.586 8.586 7.293 7.293a1 1 0 00-1.414 1.414L7.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+          </svg>
+          Ir al Login ahora
+        </a>
+      </div>
     </div>
   </div>
 </div>

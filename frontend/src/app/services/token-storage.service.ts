@@ -12,6 +12,7 @@ export class TokenStorageService {
 
   signOut(): void {
     window.sessionStorage.clear();
+    window.localStorage.clear();
   }
 
   public saveToken(token: string): void {
@@ -35,5 +36,10 @@ export class TokenStorageService {
     }
 
     return {};
+  }
+  // Verificar si está logueado
+  public isLoggedIn(): boolean {
+    const token = this.getToken();
+    return token !== null && token !== undefined && token !== '';
   }
 }
