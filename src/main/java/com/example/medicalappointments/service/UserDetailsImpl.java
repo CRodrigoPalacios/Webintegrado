@@ -43,12 +43,13 @@ public class UserDetailsImpl implements UserDetails {
                 .collect(Collectors.toList());
 
         return new UserDetailsImpl(
-                user.getId(),
-                user.getDni(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getDni(),
-                authorities);
+                user.getId(),          // id
+                user.getFullName(),    // fullName
+                user.getEmail(),       // email
+                user.getPassword(),    // password
+                user.getDni(),         // dni
+                authorities            // roles/authorities
+        );
     }
 
     @Override
@@ -67,6 +68,10 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     @Override

@@ -23,7 +23,8 @@ export class NavbarComponent implements OnInit {
         this.roles = user.roles;
         this.showAdminBoard = this.roles.includes('ROLE_ADMIN'); // Verifica si tiene el rol de ADMIN
         // Si quieres mostrar un nombre, asume que 'user' tiene una propiedad 'username' o 'fullName'
-        this.username = user.username || user.fullName || user.email;
+        const fullName = user.fullName || user.username || user.email;
+        this.username = this.getShortName(fullName);
       }
     }
   }
@@ -35,5 +36,12 @@ export class NavbarComponent implements OnInit {
     this.username = undefined; // Limpiar el nombre de usuario
     this.roles = []; // Limpiar los roles
     this.router.navigate(['/login']);
+  }
+  private getShortName(fullName: string): string {
+    const parts = fullName.trim().split(/\s+/);
+    const firstName = parts[0] || '';
+ 
+    const firstSurname = parts.length > 1 ? parts[parts.length - 2] : '';
+    return `${firstName}${firstSurname ? ' ' + firstSurname : ''}`;
   }
 }
