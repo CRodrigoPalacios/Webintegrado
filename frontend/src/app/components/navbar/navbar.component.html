@@ -11,6 +11,10 @@
         Panel Admin
       </a>
 
+      <a *ngIf="showDoctorBoard" routerLink="/admin-panel/crear-citas" class="text-green-200 hover:text-green-100 font-medium px-3 py-2 rounded-md bg-green-600 border border-green-500">
+        Programar Cita
+      </a>
+
       <a *ngIf="isLoggedIn" routerLink="/user-appointments" class="text-white hover:text-blue-400 font-medium">Mis Citas</a>
 
       <ng-container *ngIf="!isLoggedIn">
