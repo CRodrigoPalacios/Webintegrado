@@ -29,7 +29,7 @@ export class DoctorDashboardComponent implements OnInit {
   ngOnInit(): void {
     const user = this.tokenStorage.getUser();
     this.doctorId = user ? user.id : null;
-    this.loadHospitals();
+    this.loadHospitals(); // Llama a loadHospitals primero
     if (this.doctorId) {
       this.loadAppointmentSlots();
       this.loadBookings('PENDING_CONFIRMATION');
@@ -41,6 +41,13 @@ export class DoctorDashboardComponent implements OnInit {
     this.hospitalService.getHospitals().subscribe({
       next: (data) => {
         this.hospitals = data;
+        // --- NUEVA LÓGICA AQUÍ ---
+        // Una vez que los hospitales se han cargado, busca y selecciona el Hospital Regional Cayetano Heredia
+        const cayetanoHeredia = this.hospitals.find(h => h.name === 'Hospital Regional Cayetano Heredia');
+        if (cayetanoHeredia) {
+          this.hospitalId = cayetanoHeredia.id;
+        }
+        // --- FIN DE LA NUEVA LÓGICA ---
       },
       error: (err) => {
         console.error('Error loading hospitals', err);
