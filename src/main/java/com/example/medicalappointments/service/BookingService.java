@@ -56,7 +56,7 @@ public class BookingService {
 
         bookingRepository.save(booking);
 
-        String confirmationUrl = "http://localhost:4200/confirm-appointment?token=" + booking.getConfirmationToken();
+        String confirmationUrl = "https://webintegrado.vercel.app/confirm-appointment?token=" + booking.getConfirmationToken();
         emailService.sendSimpleMessage(patient.getEmail(), "Confirm your appointment", "Please click the link to confirm your appointment: " + confirmationUrl);
 
         return booking;

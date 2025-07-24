@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
 
-const API_URL = 'http://localhost:8080/api/auth/';
+const API_URL = 'https://webintegrado-production.up.railway.app/api/auth/';
 
 @Injectable({
   providedIn: 'root'

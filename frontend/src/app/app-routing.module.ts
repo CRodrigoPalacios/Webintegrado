@@ -19,7 +19,8 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import {DoctorRegistrationComponent} from "./components/doctor-registration/doctor-registration.component";
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
+{ path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthGuard], data: { roles: ['MEDICO', 'ADMIN'] }, children: [
