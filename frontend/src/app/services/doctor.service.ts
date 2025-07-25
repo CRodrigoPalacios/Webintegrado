@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
 
 const API_URL = 'https://webintegrado-production.up.railway.app/api/auth/';
-
 @Injectable({
   providedIn: 'root'
 })

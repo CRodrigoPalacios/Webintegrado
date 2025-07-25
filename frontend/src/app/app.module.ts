@@ -24,7 +24,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthInterceptor } from './helpers/http.interceptor';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { DoctorRegistrationComponent } from './components/doctor-registration/doctor-registration.component';
-
+import { UserProfileComponent } from './components/User-Profile/UserProfileComponents.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +38,7 @@ import { DoctorRegistrationComponent } from './components/doctor-registration/do
     AdminPanelComponent,
     AppointmentReservationComponent,
     UserAppointmentsComponent,
+     UserProfileComponent,
     UserModificationComponent,
     PendingAppointmentsComponent,
     PendingAppointmentsDoctorComponent,

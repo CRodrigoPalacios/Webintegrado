@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { TokenStorageService } from '../../services/token-storage.service';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
   showAdminBoard: boolean = false;
   showDoctorBoard: boolean = false;
+  showUserMenu: boolean = false; // Nueva propiedad para el dropdown
   username?: string;
   roles: string[] = [];
 
@@ -31,11 +32,33 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  // Método para alternar el menú de usuario
+  toggleUserMenu(): void {
+    this.showUserMenu = !this.showUserMenu;
+  }
+
+  // Método para cerrar el menú de usuario
+  closeUserMenu(): void {
+    this.showUserMenu = false;
+  }
+
+  // Listener para cerrar el menú cuando se hace clic fuera
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const userMenuContainer = target.closest('.relative');
+    
+    if (!userMenuContainer) {
+      this.closeUserMenu();
+    }
+  }
+
   logout(): void {
     this.tokenStorage.signOut();
     this.isLoggedIn = false;
     this.showAdminBoard = false;
     this.showDoctorBoard = false;
+    this.showUserMenu = false; // Cerrar el menú al hacer logout
     this.username = undefined;
     this.roles = [];
     this.router.navigate(['/login']);

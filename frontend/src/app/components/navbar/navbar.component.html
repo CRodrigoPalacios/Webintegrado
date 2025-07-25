@@ -22,9 +22,30 @@
         <a routerLink="/register" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200">Registrarse</a>
       </ng-container>
 
-      <ng-container *ngIf="isLoggedIn">
-        <span class="text-white font-medium" *ngIf="username">Hola, {{ username }}</span>
-        <button (click)="logout()" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-200">Cerrar Sesión</button>
+       <ng-container *ngIf="isLoggedIn">
+        <div class="flex items-center space-x-4">
+          <!-- Dropdown del usuario -->
+          <div class="relative">
+            <button (click)="toggleUserMenu()" class="flex items-center space-x-2 text-white hover:text-blue-200 transition duration-200 cursor-pointer">
+              <i class="fas fa-user-circle text-xl"></i>
+              <span class="font-medium" *ngIf="username">{{ username }}</span>
+              <i class="fas fa-chevron-down text-sm"></i>
+            </button>
+            
+            <!-- Dropdown Menu -->
+            <div *ngIf="showUserMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+              <a routerLink="/profile" (click)="closeUserMenu()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200">
+                <i class="fas fa-user mr-2"></i>
+                Mi Perfil
+              </a>
+              <div class="border-t border-gray-100"></div>
+              <button (click)="logout()" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-200">
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                Cerrar Sesión
+              </button>
+            </div>
+          </div>
+        </div>
       </ng-container>
     </div>
   </div>

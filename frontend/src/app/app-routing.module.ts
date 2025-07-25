@@ -17,11 +17,16 @@ import { PendingAppointmentsDoctorComponent } from './components/pending-appoint
 import { CompletedCancelledAppointmentsComponent } from './components/completed-cancelled-appointments/completed-cancelled-appointments.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import {DoctorRegistrationComponent} from "./components/doctor-registration/doctor-registration.component";
-
+import { UserProfileComponent } from './components/User-Profile/UserProfileComponents.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
 { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+   { 
+    path: 'profile', 
+    component: UserProfileComponent,
+    canActivate: [AuthGuard] // Si tienes guard de autenticación
+  },
   { path: 'register', component: RegisterComponent },
   { path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthGuard], data: { roles: ['MEDICO', 'ADMIN'] }, children: [
       { path: 'dashboard', component: AdminDashboardComponent },

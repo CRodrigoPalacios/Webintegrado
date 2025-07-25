@@ -18,7 +18,9 @@ export class UserService {
     }
     return this.http.get(API_URL + 'users', { params });
   }
-
+getUserById(userId: number): Observable<any> {
+  return this.http.get(API_URL + 'users/' + userId);
+}
   getUserCounts(): Observable<any> {
     return this.http.get(API_URL + 'users/counts');
   }
