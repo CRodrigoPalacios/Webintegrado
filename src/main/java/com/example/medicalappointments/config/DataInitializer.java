@@ -1,8 +1,10 @@
 package com.example.medicalappointments.config;
 
 import com.example.medicalappointments.model.ERole;
+import com.example.medicalappointments.model.Hospital;
 import com.example.medicalappointments.model.Role;
 import com.example.medicalappointments.model.User;
+import com.example.medicalappointments.repository.HospitalRepository;
 import com.example.medicalappointments.repository.RoleRepository;
 import com.example.medicalappointments.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,26 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private HospitalRepository hospitalRepository;
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Running DataInitializer...");
 
-        // Initialize roles if not present
+        final String HOSPITAL_NAME = "Hospital Regional Cayetano Heredia";
+        final String HOSPITAL_ADDRESS = "Av. Guardia Civil S/N, Piura";
+
+        if (hospitalRepository.findByName(HOSPITAL_NAME).isEmpty()) {
+            Hospital cayetano = new Hospital();
+            cayetano.setName(HOSPITAL_NAME);
+            cayetano.setAddress(HOSPITAL_ADDRESS);
+
+            hospitalRepository.save(cayetano);
+            System.out.println("✅ Hospital '" + HOSPITAL_NAME + "' inicializado en la base de datos.");
+        } else {
+            System.out.println("ℹ️ Hospital '" + HOSPITAL_NAME + "' ya existe en la base de datos. No se requiere inicialización.");
+        }
+
         if (roleRepository.count() == 0) {
             System.out.println("Initializing roles...");
             Role userRole = new Role(ERole.ROLE_USER);

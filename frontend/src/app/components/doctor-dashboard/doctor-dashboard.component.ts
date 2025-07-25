@@ -29,7 +29,7 @@ export class DoctorDashboardComponent implements OnInit {
   ngOnInit(): void {
     const user = this.tokenStorage.getUser();
     this.doctorId = user ? user.id : null;
-    this.loadHospitals();
+    this.loadHospitals(); // Llama a loadHospitals primero
     if (this.doctorId) {
       this.loadAppointmentSlots();
       this.loadBookings('PENDING_CONFIRMATION');
@@ -41,6 +41,10 @@ export class DoctorDashboardComponent implements OnInit {
     this.hospitalService.getHospitals().subscribe({
       next: (data) => {
         this.hospitals = data;
+        const cayetanoHeredia = this.hospitals.find(h => h.name === 'Hospital Regional Cayetano Heredia');
+        if (cayetanoHeredia) {
+          this.hospitalId = cayetanoHeredia.id;
+        }
       },
       error: (err) => {
         console.error('Error loading hospitals', err);
